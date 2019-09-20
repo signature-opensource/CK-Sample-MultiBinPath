@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
+  <!--Please see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/StObjEngineConfiguration.cs for documentation.-->
+
+  <TraceDependencySorterInput>false</TraceDependencySorterInput>
+  <TraceDependencySorterOutput>false</TraceDependencySorterOutput>
+  <RevertOrderingNames>false</RevertOrderingNames>
+  <LogLevel>Debug</LogLevel>
+  <GlobalExcludedTypes />
+  <Aspect Type="CK.Setup.SetupableAspectConfiguration, CK.Setupable.Model" Version="1">
+    <TraceDependencySorterInput>false</TraceDependencySorterInput>
+    <TraceDependencySorterOutput>false</TraceDependencySorterOutput>
+    <RevertOrderingNames>false</RevertOrderingNames>
+    <KeepUnaccessedItemsVersion>false</KeepUnaccessedItemsVersion>
+  </Aspect>
+  <Aspect Type="CK.Setup.SqlSetupAspectConfiguration, CK.SqlServer.Setup.Model">
+    <Databases />
+    <DefaultDatabaseConnectionString>Data Source=.;Initial Catalog=MultiBinPathDB;Integrated Security=True</DefaultDatabaseConnectionString>
+    <GlobalResolution>true</GlobalResolution>
+  </Aspect>
+  <!--BinPaths: please see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/BinPath.cs for documentation.-->
+  <BinPaths>
+    <BinPath Path="../Front.App/bin/Debug/netstandard2.0">
+      <Assemblies />
+      <Types />
+      <ExternalSingletonTypes />
+      <ExternalScopedTypes />
+      <ExcludedTypes />
+      <OutputPath>../Front.Web</OutputPath>
+      <SkipCompilation>true</SkipCompilation>
+      <GenerateSourceFiles>true</GenerateSourceFiles>
+    </BinPath>
+    <BinPath Path="../Back.App/bin/Debug/netstandard2.0">
+      <Assemblies />
+      <Types />
+      <ExternalSingletonTypes />
+      <ExternalScopedTypes />
+      <ExcludedTypes />
+      <OutputPath>../Back.Web</OutputPath>
+      <SkipCompilation>true</SkipCompilation>
+      <GenerateSourceFiles>true</GenerateSourceFiles>
+    </BinPath>
+  </BinPaths>
+  <Dependencies />
+
+  <WorkingDirectory HasLogs="true" KeepOnlyCount="5">WorkingDir</WorkingDirectory>
+  <!-- The name is explicitly empty: timed folders will be created rith below WorkingDir/ -->
+  <CKSetupName></CKSetupName>
+
+  <PreferredTargetRuntimes>NetCoreApp21</PreferredTargetRuntimes>
+</Setup>
+

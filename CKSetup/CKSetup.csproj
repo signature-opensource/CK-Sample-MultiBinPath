@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cksetup run CKSetup.xml -v Release" />
+  </Target>
+
+  <!-- Declaring dependencies here enables change detection in source projets and automatic regeneration. -->
+  <ItemGroup>
+    <ProjectReference Include="..\Back.App\Back.App.csproj" />
+    <ProjectReference Include="..\Front.App\Front.App.csproj" />
+  </ItemGroup>
+
+</Project>
