@@ -5,7 +5,7 @@ namespace Back.App
 {
     public class RealObjectSample : IRealObject
     {
-        public RealObjectSample()
+        public RealObjectSample() 
         {
         }
     }

@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="6.0.0-a00-00-0043-develop" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="6.0.0-a00-00-0028-develop" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="6.0.0-a00-00-0027-develop" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="6.0.0-a00-00-0058-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="6.0.0-a00-00-0039-develop" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="6.0.0-a00-00-0037-develop" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />
     
     <!-- This is required because there is a mess in the .Net core 2.2 dependencies for these beasts. -->

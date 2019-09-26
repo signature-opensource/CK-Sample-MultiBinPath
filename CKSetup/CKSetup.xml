@@ -47,6 +47,6 @@
   <!-- The name is explicitly empty: timed folders will be created rith below WorkingDir/ -->
   <CKSetupName></CKSetupName>
 
-  <PreferredTargetRuntimes>NetCoreApp21</PreferredTargetRuntimes>
+  <PreferredTargetRuntimes>NetCoreApp22</PreferredTargetRuntimes>
 </Setup>
 
