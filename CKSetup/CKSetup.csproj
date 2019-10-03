@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <!-- First, the CKSetup tool defined in ../.config/dotnet-tools.json is restored (if needed). -->
     <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet cksetup run CKSetup.xml -v Trace" />
+    <!-- Then, the CKSetup tool is ran, using a 'Release' log level that avoids too much noise in your "Build Output" window. -->
+    <Exec Command="dotnet cksetup run CKSetup.xml -v Release" />
   </Target>
 
-  <!-- Declaring dependencies here enables change detection in source projets and automatic regeneration. -->
+  <!-- Declaring dependencies here enables change detection in source projects and automatic code source regeneration into the .Web projects. -->
   <ItemGroup>
     <ProjectReference Include="..\Back.App\Back.App.csproj" />
     <ProjectReference Include="..\Front.App\Front.App.csproj" />

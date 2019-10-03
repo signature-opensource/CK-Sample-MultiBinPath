@@ -1,35 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
-  <!--Please see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/StObjEngineConfiguration.cs for documentation.-->
 
+<!-- The root element name can be named differently but what is important is the Engine attribute. -->
+<Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
+  
+  <!-- These 2 options are for debugging: the "Real Objects" graph is dumped in the logs before and/or after toological sort. -->
   <TraceDependencySorterInput>false</TraceDependencySorterInput>
   <TraceDependencySorterOutput>false</TraceDependencySorterOutput>
+  <!-- This option reverts the names for objects that share the same rank in the ordered graph.
+       When the same setup is successful with both name ordering, this proves that all required dependencies are defined.
+  -->
   <RevertOrderingNames>false</RevertOrderingNames>
-  <LogLevel>Debug</LogLevel>
+
+  <!--
+    This element can contain <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be excluded from the Setup.
+    Types excluded here are automatically excluded from all <BinPath> (as if they appear in each and every <BinPath><ExcludedTypes /></BinPath>).
+  -->
   <GlobalExcludedTypes />
+
+  <!-- Defines the aspect that handles 3 steps setup: "Real Objects" are associated to "Setup Items". -->
   <Aspect Type="CK.Setup.SetupableAspectConfiguration, CK.Setupable.Model" Version="1">
+    
+    <!-- These 3 options are the same as the ones above (for the "Real Objects" graph) but applies to the Setup Items graph. -->
     <TraceDependencySorterInput>false</TraceDependencySorterInput>
     <TraceDependencySorterOutput>false</TraceDependencySorterOutput>
     <RevertOrderingNames>false</RevertOrderingNames>
+
+    <!--
+      Whenever an object is not seen during a setup, it is considered obsolete: by default its version is deleted.
+      Sets this to true to be less "aggressive": an unseen object's version is kept. 
+    -->
     <KeepUnaccessedItemsVersion>false</KeepUnaccessedItemsVersion>
   </Aspect>
+
+  <!-- Defines the aspect that handles Sql Server support. -->
   <Aspect Type="CK.Setup.SqlSetupAspectConfiguration, CK.SqlServer.Setup.Model">
+
+    <!-- Other databases can be defined here. The default one (named "db") doesn't need to be specified here: the DefaultDatabaseConnectionString below does the job.
+
+          <Database>
+            <LogicalDatabaseName>histoDB</LogicalDatabaseName>
+            <ConnectionString>Data Source=.;Initial Catalog=HistoDB;Integrated Security=True</ConnectionString>           
+            <AutoCreate>true</AutoCreate> (This is optional: by default this is false, no auto creation is done.)
+          </Database>
+          
+    -->
     <Databases />
+
+    <!--
+      Specifies the connection string of the default "db" database.
+      (Since no other VersionWriter/Reader is available, this aspect will register its own VersionWriter/Reader for Setup Items: the table CKCore.tItemVersion holds them.) 
+    -->
     <DefaultDatabaseConnectionString>Data Source=.;Initial Catalog=MultiBinPathDB;Integrated Security=True</DefaultDatabaseConnectionString>
-    <GlobalResolution>true</GlobalResolution>
   </Aspect>
-  <!--BinPaths: please see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/BinPath.cs for documentation.-->
+  
+  <!-- BinPaths: see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/BinPath.cs for the object documentation.
+       These BinPaths describes the different applications that must be participate in CKSetup process. -->
   <BinPaths>
+    <!--
+      Each BinPath corresponds to a folder with the available binaries. For netstandard targets, the <CopyLocalLockFileAssemblies> is required in the
+      project so that all its dependencies are available.
+      For netcoreapp targets, this is not required since the CKSetup process automatically ensures that a /publish folder is up to date (this folder, by design, contains
+      the whole set of dependencies). -->
     <BinPath Path="../Front.App/bin/Debug/netstandard2.0">
+      <!--
+        Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup (only assemblies that appear in this list will be considered).
+        With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies disovered in the BinPath. -->
       <Assemblies />
+
+      <!-- Can contain <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be explicitly
+           registered regardless of <Assemblies />. -->
       <Types />
-      <ExternalSingletonTypes />
-      <ExternalScopedTypes />
+
+      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be excluded from  
+           registration. Note that any type appearing in <GlobalExcludedTypes /> will also be excluded. -->
       <ExcludedTypes />
+
+      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be singletons. -->
+      <ExternalSingletonTypes />
+
+      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be scoped. -->
+      <ExternalScopedTypes />
+
+      <!-- The output path of the process for this BinPath. -->
       <OutputPath>../Front.Web</OutputPath>
+
+      <!-- When true, Roslyn compilation is skipped. By default (false), the assembly is compiled and, on success, copied into the OutputPath. -->
       <SkipCompilation>true</SkipCompilation>
+      
+      <!-- When false, source files are not generated. By default (true), they are copied into the OutputPath. -->
       <GenerateSourceFiles>true</GenerateSourceFiles>
+      
     </BinPath>
+    
     <BinPath Path="../Back.App/bin/Debug/netstandard2.0">
       <Assemblies />
       <Types />
@@ -43,10 +105,18 @@
   </BinPaths>
   <Dependencies />
 
-  <WorkingDirectory HasLogs="true" KeepOnlyCount="5">WorkingDir</WorkingDirectory>
-  <!-- The name is explicitly empty: timed folders will be created rith below WorkingDir/ -->
+  <!-- If you don't specify this WorkingDirectory, a timed folder is created under %Temp%/CKSetup folder. But keeping an eye on it is a good idea.
+       By default: 
+        - CKSetup.log file in this directory contains the logs with the Log Level specified here (attribute HasLogs="true").
+        - Old (ie. previous) timed folders are automatically cleaned up (attribute KeepOnlyCount="5": only the 5 latest are kept). -->
+  <WorkingDirectory>WorkingDir</WorkingDirectory>
+  <LogLevel>Debug</LogLevel>
+
+  <!-- The name is explicitly empty: timed folders will be created right below WorkingDir/ -->
   <CKSetupName></CKSetupName>
 
+  <!-- Since we are targeting netstandard2.0 folders, the default selected runtime is... Net461. This is NOT what we want :). -->
   <PreferredTargetRuntimes>NetCoreApp22</PreferredTargetRuntimes>
+
 </Setup>
 
