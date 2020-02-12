@@ -7,18 +7,27 @@ using Back.App;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Back.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main( string[] args )
         {
-            WebHost.CreateDefaultBuilder(args)
-                .UseMonitoring()
-                .UseScopedHttpContext()
-                .UseStartup<Startup>()
+            // Using the default "black box"...
+            // (See the Front.Web Program.cs for a detailed and explicit configuration.)
+            Host.CreateDefaultBuilder( args )
+                 .UseMonitoring()
+                 .ConfigureWebHostDefaults( webBuilder =>
+                 {
+                     webBuilder
+                         .UseKestrel()
+                         .UseScopedHttpContext()
+                         .UseIISIntegration()
+                         .UseStartup<Startup>();
+                 } )
                 .Build()
                 .Run();
         }
