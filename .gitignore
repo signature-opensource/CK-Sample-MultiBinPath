@@ -261,3 +261,5 @@ Tests/**/CKSetup-WorkingDir/
 CodeCakeBuilder/MemoryKey.*.txt
 /CKSetup/WorkingDir/
 CK.StObj.AutoAssembly.dll.*
+/Front.Web/Logs/
+/MonitoringDemoApp/Logs/

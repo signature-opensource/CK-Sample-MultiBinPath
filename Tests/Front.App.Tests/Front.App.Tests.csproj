@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CK.DB.Tests.NUnit" Version="13.0.0" />
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="13.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="8.0.0" />
+    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>

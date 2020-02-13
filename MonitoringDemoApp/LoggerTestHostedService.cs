@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Front.App
+namespace MonitoringDemoApp
 {
 
     /// <summary>
@@ -93,7 +93,7 @@ This 'lost' exception will be hooked by a TaskScheduler.UnobservedTaskException 
                             {
                                 if( _dotNetLogger == null )
                                 {
-                                    _monitor.Info( "Creating the '.Net Standard Demo' logger." );
+                                    _monitor.Info( "Creating the '.Net Standard Demo' logger (this case n°8 emits a .Net LogTrace below)." );
                                     _dotNetLogger = _dotNetLoggerFactory.CreateLogger( ".Net Standard Demo" );
                                 }
                                 _dotNetLogger.LogTrace( $".Net LogTrace (most verbose .Net log level)." );
