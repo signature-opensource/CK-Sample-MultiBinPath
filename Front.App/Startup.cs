@@ -30,10 +30,6 @@ namespace Front.App
 
         public void ConfigureServices( IServiceCollection services )
         {
-            // Registers the hosted service and its configuration.
-            services.Configure<LoggerTestHostedServiceConfiguration>( _configuration.GetSection( "TesLogs" ) );
-            services.AddHostedService<LoggerTestHostedService>();
-
             // The entry point assembly contains the generated code.
             services.AddCKDatabase( _startupMonitor, System.Reflection.Assembly.GetEntryAssembly() );
         }

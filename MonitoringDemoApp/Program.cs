@@ -43,7 +43,7 @@ namespace MonitoringDemoApp
                     // To activate it, adds a new UserSecretsId GUID Property to this csproj.
                     //
                     //     <PropertyGroup>
-                    //          <UserSecretsId>{generates a new guid or use a shared one between different projects}</ UserSecretsId >
+                    //          <UserSecretsId>{generates a new guid or use a shared one between different projects}</UserSecretsId>
                     //     </PropertyGroup>
                     // 
                     //  if( env.IsDevelopment() )
