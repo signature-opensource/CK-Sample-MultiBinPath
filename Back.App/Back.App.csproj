@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="CK.DB.AspNet.Auth" Version="8.1.0" />
     <PackageReference Include="CK.DB.User.UserOidc" Version="8.1.0" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="8.1.0" />

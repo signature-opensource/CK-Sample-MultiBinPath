@@ -1,8 +1,141 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<!-- The root element name can be named differently but what is important is the Engine attribute. -->
+<!-- The root element name can be named differently but what is important is the Engine attribute. 
+     This Engine attribute is fundamental: it is the complete type of the object that will be instantiated and 
+     executed by the Runner. It can be any class that looks like this:
+
+    public class Engine
+    {
+        public Engine( IActivityMonitor m, XElement config ) { }
+
+        public bool Run() => true;
+    }
+
+-->
 <Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
+
+  <!-- 
+    Here are the pure CKSetup configurations: BasePath, WorkingDirectory, CKSetupName, LogLevel, UseSignatureFiles, ExternalSignature, PreferredTargetRuntimes and  Dependencies.
+    The BinPaths element is shared between the Engine and CKSetup. CKSetup is only concerned by the path itself but the StObjEngine needs to configure these paths
+    with more information like "Types" or "ExcludedTypes".
+  -->
+
+  <!-- This is the base path that applies to all relative paths that mat appear in this file.
+       When this BasePath is undefined or empty (the default), it is the path of this configuration file itself that is used: 
+       by default any relative path in this file are relative to this file's folder.
+    
+  <BasePath></BasePath>
+  -->
+
+  <!-- If you don't specify this WorkingDirectory, a timed folder is created under %Temp%/CKSetup folder. But keeping an eye on it is a good idea.
+       By default: 
+        - CKSetup.log file in this directory contains the logs with the Log Level specified here (set the attribute HasLogs="false" to skip producing the logs).
+        - Old (ie. previous) timed folders are automatically cleaned up (set the attribute KeepOnlyCount="X" where X is not 5 to change number of previous run to keep). -->
+  <WorkingDirectory>WorkingDir</WorkingDirectory>
+ 
+  <!-- When specified, this is used as a sub folder in the WorkingDirectory so that Setup working directory are grouped by name.
+       By default (or when empty), timed folders will be created right below the WorkingDirectory. 
+
+    <CKSetupName></CKSetupName>
+  -->
   
+  <!-- Configures the verbosity of the logs. 
+       Valid verbosity levels: Off, Release, Monitor, Terse, Verbose, Debug, or any {Group,Line} format where Group and Line can be: Debug, Trace, Info, Warn, Error, Fatal, or Off.
+  -->
+  <LogLevel>Debug</LogLevel>
+
+  <!-- By default, CKSetup calculates a binary signature (SHA1) of all files participanting in a setup and saves it in CKSetup.signature.txt files after execution in each BinPath. 
+       If nothing has changed, CKSetup avoids replaying the setup.
+       To suppress this behavior, specify False instead of True:
+      
+  <UseSignatureFiles>True</UseSignatureFiles>.
+  -->
+
+  <!-- An optional string that can be absolutely anything: its purpose is to participate in the calculation of the signature 
+       and therefore to represent any external information whose change must cause a necessary setup.
+
+  <ExternalSigntaure>Some externale key.</ExternalSignature>
+  -->
+
+  <!-- Optional element that allows you to specify a list of runtimes in descending order of preference (separated by ; like TargetFrameworks in a csproj).
+       In the absence of this element, the "smallest/oldest" runtime is selected.
+       For example, on BinPaths that contain only NetStandard2.0 assemblies (pure "Model" assemblies), Net461 will be selected.
+       Note that CKSetup.Runner supports 3 versions: Net461, NetCoreApp2.1 and NetCoreApp3.1.
+
+       Here, since we are targeting netstandard2.0 folders, the default selected runtime is... Net461. This is NOT what we want :). 
+  -->
+  <PreferredTargetRuntimes>NetCoreApp31</PreferredTargetRuntimes>
+
+
+  <!-- Optional Dependencies element allows to inject any setup dependencies or increase the (minimal) version of a discovered setup dependencies.
+
+       Example:
+
+          <Dependencies>
+            <Dependency Name="Another.Component" MinVersion="1.0.2-ci-develop.15" />
+            <Dependency Name="Component.In.Whatever.Version" />
+            <Dependency Name="CKSetup.Runner" MinVersion="5.0.0-d06-00-develop-0016" />
+          </Dependencies>
+
+       The case of the CKSetup.Runner dependency is special in that, if it does not appear, it is automatically added with the version of the CKSetup tool itself.
+       It is therefore possible to use an "old runner" (which is done in the above example), or a "newer runner".
+       For all the other dependencies, the resolution mechanism applies: the maximum of the the different MinVersion will be used.
+  -->
+
+  <!-- Here are the StObj Engine configuration, starting with the shared BinPaths. -->
+
+  <!-- BinPaths: see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/BinPath.cs for the object documentation.
+       These BinPaths describes the different applications that must participate in CKSetup process.
+  -->
+  <BinPaths>
+    <!--
+      Each BinPath corresponds to a folder with the available binaries. For netstandard targets, the <CopyLocalLockFileAssemblies> is required in the
+      project so that all its dependencies are available.
+      For netcoreapp targets, this is not required since the CKSetup process automatically ensures that a /publish folder is up to date (this folder, by design, contains
+      the whole set of dependencies). -->
+    <BinPath Path="../Front.App/bin/Debug/netcoreapp3.1">
+      <!--
+        Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup (only assemblies that appear in this list will be considered).
+        With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies disovered in the BinPath. -->
+      <Assemblies />
+
+      <!-- Can contain <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be explicitly
+           registered regardless of <Assemblies />. -->
+      <Types />
+
+      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be excluded from  
+           registration. Note that any type appearing in <GlobalExcludedTypes /> will also be excluded. -->
+      <ExcludedTypes />
+
+      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be singletons. -->
+      <ExternalSingletonTypes />
+
+      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be scoped. -->
+      <ExternalScopedTypes />
+
+      <!-- The output path of the process for this BinPath. -->
+      <OutputPath>../Front.Web</OutputPath>
+
+      <!-- When true, Roslyn compilation is skipped. By default (false), the assembly is compiled and, on success, copied into the OutputPath. -->
+      <SkipCompilation>true</SkipCompilation>
+      
+      <!-- When false, source files are not generated. By default (true), they are copied into the OutputPath. -->
+      <GenerateSourceFiles>true</GenerateSourceFiles>
+      
+    </BinPath>
+    
+    <BinPath Path="../Back.App/bin/Debug/netcoreapp3.1">
+      <Assemblies />
+      <Types />
+      <ExternalSingletonTypes />
+      <ExternalScopedTypes />
+      <ExcludedTypes />
+      <OutputPath>../Back.Web</OutputPath>
+      <SkipCompilation>true</SkipCompilation>
+      <GenerateSourceFiles>true</GenerateSourceFiles>
+    </BinPath>
+  </BinPaths>
+
   <!-- These 2 options are for debugging: the "Real Objects" graph is dumped in the logs before and/or after toological sort. -->
   <TraceDependencySorterInput>false</TraceDependencySorterInput>
   <TraceDependencySorterOutput>false</TraceDependencySorterOutput>
@@ -52,71 +185,6 @@
     -->
     <DefaultDatabaseConnectionString>Data Source=.;Initial Catalog=MultiBinPathDB;Integrated Security=True</DefaultDatabaseConnectionString>
   </Aspect>
-  
-  <!-- BinPaths: see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/BinPath.cs for the object documentation.
-       These BinPaths describes the different applications that must be participate in CKSetup process. -->
-  <BinPaths>
-    <!--
-      Each BinPath corresponds to a folder with the available binaries. For netstandard targets, the <CopyLocalLockFileAssemblies> is required in the
-      project so that all its dependencies are available.
-      For netcoreapp targets, this is not required since the CKSetup process automatically ensures that a /publish folder is up to date (this folder, by design, contains
-      the whole set of dependencies). -->
-    <BinPath Path="../Front.App/bin/Debug/netstandard2.0">
-      <!--
-        Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup (only assemblies that appear in this list will be considered).
-        With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies disovered in the BinPath. -->
-      <Assemblies />
-
-      <!-- Can contain <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be explicitly
-           registered regardless of <Assemblies />. -->
-      <Types />
-
-      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be excluded from  
-           registration. Note that any type appearing in <GlobalExcludedTypes /> will also be excluded. -->
-      <ExcludedTypes />
-
-      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be singletons. -->
-      <ExternalSingletonTypes />
-
-      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be scoped. -->
-      <ExternalScopedTypes />
-
-      <!-- The output path of the process for this BinPath. -->
-      <OutputPath>../Front.Web</OutputPath>
-
-      <!-- When true, Roslyn compilation is skipped. By default (false), the assembly is compiled and, on success, copied into the OutputPath. -->
-      <SkipCompilation>true</SkipCompilation>
-      
-      <!-- When false, source files are not generated. By default (true), they are copied into the OutputPath. -->
-      <GenerateSourceFiles>true</GenerateSourceFiles>
-      
-    </BinPath>
-    
-    <BinPath Path="../Back.App/bin/Debug/netstandard2.0">
-      <Assemblies />
-      <Types />
-      <ExternalSingletonTypes />
-      <ExternalScopedTypes />
-      <ExcludedTypes />
-      <OutputPath>../Back.Web</OutputPath>
-      <SkipCompilation>true</SkipCompilation>
-      <GenerateSourceFiles>true</GenerateSourceFiles>
-    </BinPath>
-  </BinPaths>
-  <Dependencies />
-
-  <!-- If you don't specify this WorkingDirectory, a timed folder is created under %Temp%/CKSetup folder. But keeping an eye on it is a good idea.
-       By default: 
-        - CKSetup.log file in this directory contains the logs with the Log Level specified here (attribute HasLogs="true").
-        - Old (ie. previous) timed folders are automatically cleaned up (attribute KeepOnlyCount="5": only the 5 latest are kept). -->
-  <WorkingDirectory>WorkingDir</WorkingDirectory>
-  <LogLevel>Debug</LogLevel>
-
-  <!-- The name is explicitly empty: timed folders will be created right below WorkingDir/ -->
-  <CKSetupName></CKSetupName>
-
-  <!-- Since we are targeting netstandard2.0 folders, the default selected runtime is... Net461. This is NOT what we want :). -->
-  <PreferredTargetRuntimes>NetCoreApp22</PreferredTargetRuntimes>
 
 </Setup>
 
