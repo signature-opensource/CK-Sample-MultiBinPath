@@ -1,27 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="CK.DB.Tests.NUnit" Version="13.1.0" />
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="13.1.2--0006-develop" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="8.1.0" />
-    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="8.1.0" />
+    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="8.1.2--0004-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="8.1.2--0006-develop" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Back.App\Back.App.csproj" />
   </ItemGroup>
-
-  
 </Project>

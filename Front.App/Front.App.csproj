@@ -1,17 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <!-- Since we have to reference "Web" packages, we must target NetCoreApp 3.1. -->
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <!-- This forces MSBuild to generate the runtimeconfig.json file with the Microsoft.AspNetCore.App reference. -->
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
   </PropertyGroup>
-
   <ItemGroup>
     <!-- This reference the AspNet Core meta package. -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="8.1.0" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="8.1.0" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="8.1.2--0005-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="8.1.2--0006-develop" />
   </ItemGroup>
-
 </Project>
