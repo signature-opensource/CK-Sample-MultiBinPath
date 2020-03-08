@@ -9,16 +9,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Back.App
 {
     public class Startup
     {
         readonly IConfiguration _configuration;
-        readonly IHostingEnvironment _hostingEnvironment;
+        readonly IWebHostEnvironment _hostingEnvironment;
         readonly IActivityMonitor _startupMonitor;
 
-        public Startup( IConfiguration configuration, IHostingEnvironment env )
+        public Startup( IConfiguration configuration, IWebHostEnvironment env )
         {
             _startupMonitor = new ActivityMonitor( $"App {env.ApplicationName}/{env.EnvironmentName} on {Environment.MachineName}/{Environment.UserName}." );
             _configuration = configuration;
