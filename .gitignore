@@ -263,3 +263,5 @@ CodeCakeBuilder/MemoryKey.*.txt
 CK.StObj.AutoAssembly.dll.*
 /Front.Web/Logs/
 /MonitoringDemoApp/Logs/
+
+CodeCakeBuilder/UnitTestsDone.*.txt

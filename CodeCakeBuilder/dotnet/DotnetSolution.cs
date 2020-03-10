@@ -1,15 +1,13 @@
 using Cake.Common.Diagnostics;
 using Cake.Common.IO;
 using Cake.Common.Solution;
-using Cake.Common.Solution.Project;
 using Cake.Common.Tools.DotNetCore;
 using Cake.Common.Tools.DotNetCore.Build;
-using Cake.Common.Tools.DotNetCore.Pack;
 using Cake.Common.Tools.DotNetCore.Test;
 using Cake.Common.Tools.NUnit;
+using Cake.Core;
 using Cake.Core.IO;
 using CK.Text;
-using CodeCake;
 using CodeCake.Abstractions;
 using SimpleGitVersion;
 using System;
@@ -17,7 +15,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using static CodeCake.Build;
 
 namespace CodeCake
 {
@@ -37,7 +34,7 @@ namespace CodeCake
         }
     }
 
-    public partial class DotnetSolution : ISolution
+    public partial class DotnetSolution : ICIWorkflow
     {
         readonly StandardGlobalInfo _globalInfo;
         public readonly string SolutionFileName;
@@ -136,16 +133,19 @@ namespace CodeCake
                 string assetsJson = File.ReadAllText( objDir.AppendPart( "project.assets.json" ) );
                 bool isNunitLite = assetsJson.Contains( "NUnitLite" );
                 bool isVSTest = assetsJson.Contains( "Microsoft.NET.Test.Sdk" );
-                foreach( NormalizedPath buildDir in Directory.GetDirectories( binDir ) )
+                foreach( NormalizedPath buildDir in
+                    Directory.GetDirectories( binDir )
+                        .Where( p => Directory.EnumerateFiles( p ).Any() )
+                )
                 {
                     string framework = buildDir.LastPart;
+                    bool isNetFramework = framework.StartsWith( "net" ) && framework.Length == 6 && int.TryParse( framework.Substring( 3 ), out var _ );
                     string fileWithoutExtension = buildDir.AppendPart( project.Name );
                     string testBinariesPath = "";
                     if( isNunitLite )
                     {
                         // Using NUnitLite.
-                        testBinariesPath = fileWithoutExtension + ".exe";
-                        if( File.Exists( testBinariesPath ) )
+                        if( isNetFramework && File.Exists( (testBinariesPath = fileWithoutExtension + ".exe") ) )
                         {
                             _globalInfo.Cake.Information( $"Testing via NUnitLite ({framework}): {testBinariesPath}" );
                             if( !_globalInfo.CheckCommitMemoryKey( testBinariesPath ) )
@@ -173,14 +173,19 @@ namespace CodeCake
                         _globalInfo.Cake.Information( $"Testing via VSTest ({framework}): {testBinariesPath}" );
                         if( !_globalInfo.CheckCommitMemoryKey( testBinariesPath ) )
                         {
-                            _globalInfo.Cake.DotNetCoreTest( projectPath, new DotNetCoreTestSettings()
+                            var options = new DotNetCoreTestSettings()
                             {
                                 Configuration = _globalInfo.BuildConfiguration,
                                 Framework = framework,
                                 NoRestore = true,
                                 NoBuild = true,
                                 Logger = "trx"
-                            } );
+                            };
+                            if( _globalInfo.Cake.Environment.GetEnvironmentVariable( "DisableNodeReUse" ) != null )
+                            {
+                                options.ArgumentCustomization = args => args.Append( "/nodeReuse:false" );
+                            }
+                            _globalInfo.Cake.DotNetCoreTest( projectPath, options );
                         }
                     }
 
@@ -203,8 +208,8 @@ namespace CodeCake
             }
         }
 
-        void ISolution.Build() => Build();
+        void ICIWorkflow.Build() => Build();
 
-        void ISolution.Test() => Test();
+        void ICIWorkflow.Test() => Test();
     }
 }
