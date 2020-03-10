@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <!-- This forces MSBuild to generate the runtimeconfig.json file with the Microsoft.AspNetCore.App reference. -->
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <!-- This reference the AspNet Core meta package. -->
