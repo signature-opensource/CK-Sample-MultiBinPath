@@ -93,7 +93,7 @@
       project so that all its dependencies are available.
       For netcoreapp targets, this is not required since the CKSetup process automatically ensures that a /publish folder is up to date (this folder, by design, contains
       the whole set of dependencies). -->
-    <BinPath Path="../Front.App/bin/Debug/netcoreapp3.1">
+    <BinPath Path="../Front.App/bin/[Debug|Release]/netcoreapp3.1">
       <!--
         Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup (only assemblies that appear in this list will be considered).
         With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies disovered in the BinPath. -->
@@ -124,7 +124,7 @@
       
     </BinPath>
     
-    <BinPath Path="../Back.App/bin/Debug/netcoreapp3.1">
+    <BinPath Path="../Back.App/bin/[Debug|Release]/netcoreapp3.1">
       <Assemblies />
       <Types />
       <ExternalSingletonTypes />
