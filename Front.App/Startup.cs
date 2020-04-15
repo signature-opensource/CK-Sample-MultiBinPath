@@ -31,6 +31,7 @@ namespace Front.App
         public void ConfigureServices( IServiceCollection services )
         {
             // The entry point assembly contains the generated code.
+            // The HostedServiceDemo is automatically registered (as IsMultiple|IsSingleton).
             services.AddCKDatabase( _startupMonitor, System.Reflection.Assembly.GetEntryAssembly() );
         }
 
@@ -44,7 +45,8 @@ namespace Front.App
 
             app.Run( async ( context ) =>
              {
-                 await context.Response.WriteAsync( "Hello World!" );
+                 bool isRunning = context.RequestServices.GetRequiredService<HostedServiceDemo>().IsRunning;
+                 await context.Response.WriteAsync( $"Hello World! HostedServiceDemo.IsRunning = {isRunning}." );
              } );
         }
     }

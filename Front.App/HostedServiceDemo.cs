@@ -12,9 +12,9 @@ namespace Front.App
     /// This is a demo hosted service: this is automatically registered as a hosted service and
     /// start/stop methods are called by the host.
     /// Since this is a Singleton service, other participants can perfectly depends on this class (or
-    /// a ISingletonAutoService interface can be defined)
+    /// a ISingletonAutoService interface may be implemented by this class).
     /// </summary>
-    public class HostedServiceDemo : IHostedService
+    public class HostedServiceDemo : IHostedService, IAutoService
                                      //, ISingletonAutoService
                                      // --> This is useless: Microsoft.Extensions.Hosting.IHostedService is automatically
                                      //     registered as a [IsMultiple] Singleton service.
