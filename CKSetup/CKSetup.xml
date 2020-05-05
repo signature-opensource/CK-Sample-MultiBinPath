@@ -84,7 +84,7 @@
 
   <!-- Here are the StObj Engine configuration, starting with the shared BinPaths. -->
 
-  <!-- BinPaths: see https://gitlab.com/signature-code/CK-Database/raw/develop/CK.StObj.Model/Configuration/BinPath.cs for the object documentation.
+  <!-- BinPaths: see https://github.com/signature-opensource/CK-StObj/blob/master/CK.StObj.Model/Configuration/BinPath.cs for the object documentation.
        These BinPaths describes the different applications that must participate in CKSetup process.
   -->
   <BinPaths>
