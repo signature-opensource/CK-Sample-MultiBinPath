@@ -45,8 +45,7 @@ namespace CodeCake
         {
             Cake.Log.Verbosity = Verbosity.Diagnostic;
 
-            SimpleRepositoryInfo gitInfo = Cake.GetSimpleRepositoryInfo();
-            StandardGlobalInfo globalInfo = CreateStandardGlobalInfo( gitInfo )
+            StandardGlobalInfo globalInfo = CreateStandardGlobalInfo()
                                                 .AddDotnet()
                                                 .SetCIBuildTag();
 
