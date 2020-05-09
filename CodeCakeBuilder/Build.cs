@@ -45,8 +45,7 @@ namespace CodeCake
         {
             Cake.Log.Verbosity = Verbosity.Diagnostic;
 
-            SimpleRepositoryInfo gitInfo = Cake.GetSimpleRepositoryInfo();
-            StandardGlobalInfo globalInfo = CreateStandardGlobalInfo( gitInfo )
+            StandardGlobalInfo globalInfo = CreateStandardGlobalInfo()
                                                 .AddDotnet()
                                                 .SetCIBuildTag();
 
@@ -83,25 +82,9 @@ namespace CodeCake
                   globalInfo.GetDotnetSolution().Test();
                } );
 
-            Task( "Create-NuGet-Packages" )
-                .WithCriteria( () => gitInfo.IsValid )
-                .IsDependentOn( "Unit-Testing" )
-                .Does( () =>
-                {
-                    globalInfo.GetDotnetSolution().Pack();
-                } );
-
-            Task( "Push-Artifacts" )
-                .IsDependentOn( "Create-NuGet-Packages" )
-                .WithCriteria( () => gitInfo.IsValid )
-                .Does( () =>
-                {
-                    globalInfo.PushArtifacts();
-                } );
-
             // The Default task for this script can be set here.
             Task( "Default" )
-                .IsDependentOn( "Push-Artifacts" );
+                .IsDependentOn( "Unit-Testing" );
         }
     }
 }

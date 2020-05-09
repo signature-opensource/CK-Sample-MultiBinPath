@@ -11,6 +11,7 @@
         public bool Run() => true;
     }
 
+     Here, we want the StObjEngine to be executed. 
 -->
 <Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
 
@@ -48,13 +49,13 @@
        If nothing has changed, CKSetup avoids replaying the setup.
        To suppress this behavior, specify False instead of True:
       
-  <UseSignatureFiles>True</UseSignatureFiles>.
+  <UseSignatureFiles>True</UseSignatureFiles>
   -->
 
   <!-- An optional string that can be absolutely anything: its purpose is to participate in the calculation of the signature 
        and therefore to represent any external information whose change must cause a necessary setup.
 
-  <ExternalSigntaure>Some externale key.</ExternalSignature>
+  <ExternalSigntaure>Some external key.</ExternalSignature>
   -->
 
   <!-- Optional element that allows you to specify a list of runtimes in descending order of preference (separated by ; like TargetFrameworks in a csproj).
@@ -92,26 +93,48 @@
       Each BinPath corresponds to a folder with the available binaries. For netstandard targets, the <CopyLocalLockFileAssemblies> is required in the
       project so that all its dependencies are available.
       For netcoreapp targets, this is not required since the CKSetup process automatically ensures that a /publish folder is up to date (this folder, by design, contains
-      the whole set of dependencies). -->
-    <BinPath Path="../Front.App/bin/Debug/netcoreapp3.1">
+      the whole set of dependencies).
+
+      Here, there is an alternate path that is described: [Debug|Release].
+      The two paths will be tested and the one that exists with the MOST RECENT file in it will win: the "Debug" or "Release" winner will be applied to the following
+      BinPath path (if they contain the same [Debug|Release] - or [Release|Debug] - alternate path of course).
+    -->
+    <BinPath Path="../Front.App/bin/[Debug|Release]/netcoreapp3.1">
       <!--
         Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup (only assemblies that appear in this list will be considered).
         With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies disovered in the BinPath. -->
       <Assemblies />
 
-      <!-- Can contain <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be explicitly
-           registered regardless of <Assemblies />. -->
-      <Types />
+      <!-- Can contain <Type Name="Name.Space.TypeName, AssemblyName" Kind="xxx" /> child elements with types assembly qualified name that must be explicitly
+           registered regardless of <Assemblies />.
+
+          The Kind is a combination of the AutoServiceKind enumeration that is defined here: https://github.com/signature-opensource/CK-StObj/blob/develop/CK.StObj.Model/AutomaticDI/AutoServiceKind.cs
+          The combined enum can use comma (the standard .Net way to comine enum flags) or pipe (|).
+          
+          Below are useless definitions (these declarations are already made by the StObjCollector that references all the types) that are
+          good examples of what can be done.
+      -->
+      <Types>
+        <!-- The IActivityMobitor is by design a scoped service. It not Optional (since it necessarily exists). -->
+        <Type Name="CK.Core.IActivityMonitor, CK.ActivityMonitor" Kind="IsScoped" />
+
+        <!-- This defines a  [Multiple] ISingletonAutoService. Thanks to this definition, hosted services implementations are automatocally registered. -->
+        <Type Name="Microsoft.Extensions.Hosting.IHostedService, Microsoft.Extensions.Hosting.Abstractions" Kind="IsMultipleService|IsSingleton" Optional="True" />
+
+        <!-- The IOptions<> family with its 2 sigletons and 1 scoped shows how open generics can be registered. -->
+        <Type Name="Microsoft.Extensions.Options.IOptions&lt;&gt;, Microsoft.Extensions.Options" Kind="IsSingleton,IsFrontProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOptionsSnapshot&lt;&gt;, Microsoft.Extensions.Options" Kind="IsScoped|IsFrontProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOptionsMonitor&lt;&gt;, Microsoft.Extensions.Options" Kind="IsSingleton|IsFrontProcessService" Optional="True" />
+
+        <!-- Other well known services life time can be defined... -->
+        <Type Name="Microsoft.Extensions.Logging.ILoggerFactory, Microsoft.Extensions.Logging.Abstractions" Kind="IsSingleton" Optional="True" />
+        <Type Name="Microsoft.Extensions.Logging.ILoggerProvider, Microsoft.Extensions.Logging.Abstractions" Kind="IsSingleton" Optional="True" />
+        
+      </Types>
 
       <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be excluded from  
            registration. Note that any type appearing in <GlobalExcludedTypes /> will also be excluded. -->
       <ExcludedTypes />
-
-      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be singletons. -->
-      <ExternalSingletonTypes />
-
-      <!-- Optional set of <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that are known to be scoped. -->
-      <ExternalScopedTypes />
 
       <!-- The output path of the process for this BinPath. -->
       <OutputPath>../Front.Web</OutputPath>
@@ -124,11 +147,9 @@
       
     </BinPath>
     
-    <BinPath Path="../Back.App/bin/Debug/netcoreapp3.1">
+    <BinPath Path="../Back.App/bin/[Debug|Release]/netcoreapp3.1">
       <Assemblies />
       <Types />
-      <ExternalSingletonTypes />
-      <ExternalScopedTypes />
       <ExcludedTypes />
       <OutputPath>../Back.Web</OutputPath>
       <SkipCompilation>true</SkipCompilation>

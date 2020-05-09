@@ -3,10 +3,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Exe</OutputType>
     <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <!-- Microsoft.Extensions.Hosting (that contains the HostBuilder) and Microsoft.Extensions.Logging are transitive dependencies. -->
-    <PackageReference Include="CK.Monitoring.Hosting" Version="12.1.1--0006-develop" />
-    <PackageReference Include="CK.ActivityMonitor.SimpleSender" Version="13.1.1--0005-develop" />
+    <PackageReference Include="CK.Monitoring.Hosting" Version="12.3.0" />
+    <PackageReference Include="CK.ActivityMonitor.SimpleSender" Version="13.3.0" />
   </ItemGroup>
 </Project>

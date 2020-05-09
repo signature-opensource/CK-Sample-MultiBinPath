@@ -10,7 +10,8 @@ namespace MonitoringDemoApp
 {
 
     /// <summary>
-    /// This background service emits logs on a regular basis controlled by .
+    /// This background service emits logs on a regular basis controlled by <see cref="LoggerTestHostedServiceConfiguration"/>
+    /// that can be dynamically updated.
     /// </summary>
     public class LoggerTestHostedService : IHostedService, IDisposable
     {
