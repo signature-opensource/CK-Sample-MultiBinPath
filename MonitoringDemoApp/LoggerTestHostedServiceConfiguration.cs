@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace MonitoringDemoApp
 {
@@ -12,6 +13,10 @@ namespace MonitoringDemoApp
         /// </summary>
         public TimeSpan TimerDuration { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether <see cref="TaskScheduler.UnobservedTaskException"/> should be sollicited.
+        /// </summary>
+        public bool ThrowTaskSchedulerUnobservedTaskException { get; set; } = true;
 
         public override string ToString() => $"Options{{ TimerDuration = {TimerDuration} }}";
     }

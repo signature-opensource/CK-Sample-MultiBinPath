@@ -69,10 +69,10 @@ namespace MonitoringDemoApp
                         case 5: _monitor.Fatal( "A fatal line (most severe level)." ); break;
                         case 6:
                             {
-                                _monitor.Info( @"throw new Exception( ""Unhandled exception, directly on the thread pool, during the timer handling."" );
-
-My first idea was that such an exception directly on the timer thread would have been trapped by AppDomain.CurrentDomain.UnhandledException. This was not the case:
-see the (still opened) issue: https://github.com/dotnet/extensions/issues/1836
+                                _monitor.Info( @"This would crash the entire process: throw new Exception( ""Unhandled exception, directly on the thread pool, during the timer handling."" ); " );
+                                _monitor.Debug( @"
+My first idea was that such an exception directly on the timer thread would have been trapped by AppDomain.CurrentDomain.UnhandledException. This is not the case:
+see the (closed) issue: https://github.com/dotnet/extensions/issues/1836
 
 ""
 The application exits because entire process is crashing. The host isn't gracefully shutting down, the process is just dying.
@@ -83,11 +83,15 @@ This happens when using timers or the thread pool directly without a try catch.
                             }
                         case 7:
                             {
-                                _monitor.Trace( @"Calling: Task.Run( () => throw new Exception( ""Unhandled exception on the default Task scheduler."" ) );
+                                if( _options.CurrentValue.ThrowTaskSchedulerUnobservedTaskException )
+                                {
+                                    _monitor.Trace( @"Calling: Task.Run( () => throw new Exception( ""Unhandled exception on the default Task scheduler."" ) );
 
 This 'lost' exception will be hooked by a TaskScheduler.UnobservedTaskException an logged... but at the next GC time!
 " );
-                                Task.Run( () => throw new Exception( "Unhandled exception on the default Task scheduler." ) );
+                                    Task.Run( () => throw new Exception( "Unhandled exception on the default Task scheduler." ) );
+                                }
+                                else _monitor.Trace( @"Throwing unhandled exception has been skipped since ThrowTaskSchedulerUnobservedTaskException is false." );
                                 break;
                             }
                         case 8:
@@ -106,7 +110,7 @@ This 'lost' exception will be hooked by a TaskScheduler.UnobservedTaskException 
                         case 12: _dotNetLogger.LogError( $".Net LogError." ); break;
                         case 13: _dotNetLogger.LogCritical( $".Net LogCritical (most severe .Net level)." ); break;
                         default:
-                            using( _monitor.OpenInfo( "Calling the Garbage collector: this will release the Task.UnobservedExceptions." ) )
+                            using( _monitor.OpenInfo( "Calling the Garbage collector: this will release the TaskScheduler.UnobservedTaskException." ) )
                             {
                                 GC.Collect();
                                 _monitor.Trace( "Waiting for completion." );
