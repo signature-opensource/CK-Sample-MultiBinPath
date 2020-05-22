@@ -115,16 +115,21 @@
           good examples of what can be done.
       -->
       <Types>
-        <!-- The IActivityMobitor is by design a scoped service. It not Optional (since it necessarily exists). -->
+        <!-- The IActivityMobitor is by design a scoped service. It is not Optional (since it necessarily exists). -->
         <Type Name="CK.Core.IActivityMonitor, CK.ActivityMonitor" Kind="IsScoped" />
 
         <!-- This defines a  [Multiple] ISingletonAutoService. Thanks to this definition, hosted services implementations are automatocally registered. -->
         <Type Name="Microsoft.Extensions.Hosting.IHostedService, Microsoft.Extensions.Hosting.Abstractions" Kind="IsMultipleService|IsSingleton" Optional="True" />
 
-        <!-- The IOptions<> family with its 2 sigletons and 1 scoped shows how open generics can be registered. -->
-        <Type Name="Microsoft.Extensions.Options.IOptions&lt;&gt;, Microsoft.Extensions.Options" Kind="IsSingleton,IsFrontProcessService" Optional="True" />
-        <Type Name="Microsoft.Extensions.Options.IOptionsSnapshot&lt;&gt;, Microsoft.Extensions.Options" Kind="IsScoped|IsFrontProcessService" Optional="True" />
-        <Type Name="Microsoft.Extensions.Options.IOptionsMonitor&lt;&gt;, Microsoft.Extensions.Options" Kind="IsSingleton|IsFrontProcessService" Optional="True" />
+        <!-- The IOptions<> family with its 2 sigletons and 1 scoped shows how open generics can be registered.
+             Registration must be done from the most specific types to the basic ones: here we must start with IOptionsSnapshot since IOptionsSnapshot<T> extends IOptions<T>.
+
+              If we register them the other way, there will be an error since the Singleton of the parent will conflict with the Scoped wanted by the specialization.
+        -->
+        <Type Name="Microsoft.Extensions.Options.IOptionsSnapshot`1, Microsoft.Extensions.Options" Kind="IsScoped|IsFrontProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOption`1, Microsoft.Extensions.Options" Kind="IsSingleton,IsFrontProcessService" Optional="True" />
+        <!-- IOptionsMonitor is independent. -->
+        <Type Name="Microsoft.Extensions.Options.IOptionsMonitor`1, Microsoft.Extensions.Options" Kind="IsSingleton|IsFrontProcessService" Optional="True" />
 
         <!-- Other well known services life time can be defined... -->
         <Type Name="Microsoft.Extensions.Logging.ILoggerFactory, Microsoft.Extensions.Logging.Abstractions" Kind="IsSingleton" Optional="True" />

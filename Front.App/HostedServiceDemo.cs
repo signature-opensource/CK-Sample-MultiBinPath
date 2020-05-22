@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CK.Core;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 namespace Front.App
 {
@@ -17,8 +19,16 @@ namespace Front.App
     public class HostedServiceDemo : IHostedService, IAutoService
                                      //, ISingletonAutoService
                                      // --> This is useless: Microsoft.Extensions.Hosting.IHostedService is automatically
-                                     //     registered as a [IsMultiple] Singleton service.
+                                     //     registered as a [IsMultiple] Singleton service (see the CKSetup.xml BinPath/Types elements).
     {
+        readonly IOptionsMonitor<HostedServiceDemoConfiguration> _config;
+
+        // IOptionsMonitor is defined as being singleton.
+        public HostedServiceDemo( IOptionsMonitor<HostedServiceDemoConfiguration> config )
+        {
+            _config = config;
+        }
+
         public Task StartAsync( CancellationToken cancellationToken )
         {
             HasBeenStarted = true;
