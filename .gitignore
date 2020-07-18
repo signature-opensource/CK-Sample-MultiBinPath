@@ -265,3 +265,4 @@ CK.StObj.AutoAssembly.dll.*
 /MonitoringDemoApp/Logs/
 
 CodeCakeBuilder/UnitTestsDone.*.txt
+$StObjGen/
