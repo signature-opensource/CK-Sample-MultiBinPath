@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Front.App", "Front.App\Fron
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKSetup", "CKSetup\CKSetup.csproj", "{7758C721-9372-4FE1-B29E-D00E59C5A42F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.Web", "Back.Web\Back.Web.csproj", "{A24B9C07-80D5-4606-BF6C-02EE24EDCDBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.WebHost", "Back.WebHost\Back.WebHost.csproj", "{A24B9C07-80D5-4606-BF6C-02EE24EDCDBD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Front.Web", "Front.Web\Front.Web.csproj", "{E3845A34-89F7-4CDF-A4B9-4F5AFED2000B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Front.WebHost", "Front.WebHost\Front.WebHost.csproj", "{E3845A34-89F7-4CDF-A4B9-4F5AFED2000B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Front.App.Tests", "Tests\Front.App.Tests\Front.App.Tests.csproj", "{140B7847-1336-4713-ABAB-1CD62AE415D0}"
 EndProject
@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.App.Tests", "Tests\Bac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCakeBuilder", "CodeCakeBuilder\CodeCakeBuilder.csproj", "{7181AB05-8E3A-4EFA-A7BD-658CCC87569E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringDemoApp", "MonitoringDemoApp\MonitoringDemoApp.csproj", "{12EB58C9-4C1B-4D7E-84DD-662B0ABAC25B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringDemoApp", "MonitoringDemoApp\MonitoringDemoApp.csproj", "{12EB58C9-4C1B-4D7E-84DD-662B0ABAC25B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

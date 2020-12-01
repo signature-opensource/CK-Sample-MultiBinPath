@@ -16,7 +16,7 @@
 <Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
 
   <!-- 
-    Here are the pure CKSetup configurations: BasePath, WorkingDirectory, CKSetupName, LogLevel, UseSignatureFiles, ExternalSignature, PreferredTargetRuntimes and  Dependencies.
+    Here are the pure CKSetup configurations: BasePath, WorkingDirectory, CKSetupName, LogLevel, UseSignatureFiles, ExternalSignature, PreferredTargetRuntimes and Dependencies.
     The BinPaths element is shared between the Engine and CKSetup. CKSetup is only concerned by the path itself but the StObjEngine needs to configure these paths
     with more information like "Types" or "ExcludedTypes".
   -->
@@ -142,7 +142,7 @@
       <ExcludedTypes />
 
       <!-- The output path of the process for this BinPath. -->
-      <OutputPath>../Front.Web</OutputPath>
+      <OutputPath>../Front.WebHost</OutputPath>
 
       <!-- When true, Roslyn compilation is skipped. By default (false), the assembly is compiled and, on success, copied into the OutputPath. -->
       <SkipCompilation>true</SkipCompilation>
@@ -156,7 +156,7 @@
       <Assemblies />
       <Types />
       <ExcludedTypes />
-      <OutputPath>../Back.Web</OutputPath>
+      <OutputPath>../Back.WebHost</OutputPath>
       <SkipCompilation>true</SkipCompilation>
       <GenerateSourceFiles>true</GenerateSourceFiles>
     </BinPath>
