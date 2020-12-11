@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="9.0.2--0016-develop" />
+    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="9.0.2--0017-develop" />
     <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="9.0.2--0018-develop" />
   </ItemGroup>
   <ItemGroup>
