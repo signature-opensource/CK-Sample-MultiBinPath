@@ -52,7 +52,9 @@ namespace CodeCake
             Task( "Check-Repository" )
                 .Does( () =>
                 {
-                    globalInfo.TerminateIfShouldStop();
+                    // We currently produce nothing so TerminateIfShouldStop
+                    // always stops the build script.
+                    // globalInfo.TerminateIfShouldStop();
                 } );
 
             Task( "Clean" )
