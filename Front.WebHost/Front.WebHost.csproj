@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.Monitoring.Hosting" Version="12.3.1" />
+    <PackageReference Include="CK.Monitoring.Hosting" Version="13.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Front.App\Front.App.csproj" />
