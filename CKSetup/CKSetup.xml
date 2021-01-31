@@ -21,9 +21,9 @@
     with more information like "Types" or "ExcludedTypes".
   -->
 
-  <!-- This is the base path that applies to all relative paths that mat appear in this file.
+  <!-- This is the base path that applies to all relative paths that may appear in this file.
        When this BasePath is undefined or empty (the default), it is the path of this configuration file itself that is used: 
-       by default any relative path in this file are relative to this file's folder.
+       by default all relative paths in this file are relative to this file's folder.
     
   <BasePath></BasePath>
   -->
@@ -175,7 +175,7 @@
 
   </BinPaths>
 
-  <!-- These 2 options are for debugging: the "Real Objects" graph is dumped in the logs before and/or after toological sort. -->
+  <!-- These 2 options are for debugging: the "Real Objects" graph is dumped in the logs before and/or after topological sort. -->
   <TraceDependencySorterInput>false</TraceDependencySorterInput>
   <TraceDependencySorterOutput>false</TraceDependencySorterOutput>
   <!-- This option reverts the names for objects that share the same rank in the ordered graph.
