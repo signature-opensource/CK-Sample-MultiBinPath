@@ -12,9 +12,6 @@ using Microsoft.Extensions.Hosting;
 
 namespace Front.App
 {
-    
-
-
     public class Startup
     {
         readonly IConfiguration _configuration;
