@@ -12,8 +12,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="10.0.2--0012-develop" />
-    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="10.0.2--0015-develop" />
+    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="10.0.2--0013-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="10.0.2--0016-develop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Back.App\Back.App.csproj" />
