@@ -4,9 +4,8 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.Monitoring.Hosting" Version="14.0.0" />
+    <PackageReference Include="CK.Monitoring.Hosting" Version="14.0.1--0001-develop" />
   </ItemGroup>
-
   <!--
   The G0.cs is first removed from the compilation files to avoid a warning since
   the "InjectStObjGen" target includes it back right before the build of this project.
@@ -20,7 +19,6 @@
       <Compile Include="$StObjGen/G0.cs" />
     </ItemGroup>
   </Target>
-
   <ItemGroup>
     <ProjectReference Include="..\Front.App\Front.App.csproj" />
     <ProjectReference Include="..\CKSetup\CKSetup.csproj" ReferenceOutputAssembly="false" />
