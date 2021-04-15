@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="$StObjGen/G0.cs" />
+  </ItemGroup>
+  <Target Name="InjectStObjGen" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Include="$StObjGen/G0.cs" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
     <ProjectReference Include="..\Back.App\Back.App.csproj" />
     <ProjectReference Include="..\CKSetup\CKSetup.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
