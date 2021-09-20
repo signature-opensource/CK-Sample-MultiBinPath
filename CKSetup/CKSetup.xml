@@ -122,7 +122,7 @@
           good examples of what can be done.
       -->
       <Types>
-        <!-- The IActivityMobitor is by design a scoped service. It is not Optional (since it necessarily exists). -->
+        <!-- The IActivityMonitor is by design a scoped service. It is not Optional (since it necessarily exists). -->
         <Type Name="CK.Core.IActivityMonitor, CK.ActivityMonitor" Kind="IsScoped" />
 
         <!-- This defines a  [Multiple] ISingletonAutoService. Thanks to this definition, hosted services implementations are automatocally registered. -->
