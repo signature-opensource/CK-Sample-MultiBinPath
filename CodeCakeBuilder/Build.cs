@@ -38,7 +38,7 @@ namespace CodeCake
     /// Sample build "script".
     /// Build scripts can be decorated with AddPath attributes that inject existing paths into the PATH environment variable. 
     /// </summary>
-    [AddPath( "%UserProfile%/.nuget/packages/**/tools*" )]
+    
     public partial class Build : CodeCakeHost
     {
         public Build()
@@ -52,7 +52,9 @@ namespace CodeCake
             Task( "Check-Repository" )
                 .Does( () =>
                 {
-                    globalInfo.TerminateIfShouldStop();
+                    // We currently produce nothing so TerminateIfShouldStop
+                    // always stops the build script.
+                    // globalInfo.TerminateIfShouldStop();
                 } );
 
             Task( "Clean" )
@@ -60,7 +62,7 @@ namespace CodeCake
                 .Does( () =>
                  {
                      globalInfo.GetDotnetSolution().Clean();
-                     Cake.CleanDirectories( globalInfo.ReleasesFolder );
+                     Cake.CleanDirectories( globalInfo.ReleasesFolder.ToString() );
                     
                  } );
 

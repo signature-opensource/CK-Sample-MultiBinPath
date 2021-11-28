@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CK.Monitoring.Hosting" Version="14.2.1" />
+  </ItemGroup>
+  <!--
+  The G0.cs is first removed from the compilation files to avoid a warning since
+  the "InjectStObjGen" target includes it back right before the build of this project.
+  If the G0.cs is eventually not here, this will raise an error and this is perfect.
+  -->
+  <ItemGroup>
+    <Compile Remove="$StObjGen/G0.cs" />
+  </ItemGroup>
+  <Target Name="InjectStObjGen" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Include="$StObjGen/G0.cs" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <ProjectReference Include="..\Front.App\Front.App.csproj" />
+    <ProjectReference Include="..\CKSetup\CKSetup.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>
