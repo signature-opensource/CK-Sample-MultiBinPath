@@ -2,7 +2,7 @@
   "isRoot": true,
   "tools": {
     "cksetup": {
-      "version": "14.2.1",
+      "version": "0.0.0--03lvwyf-local",
       "commands": [
         "cksetup"
       ]
