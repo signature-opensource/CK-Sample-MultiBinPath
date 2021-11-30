@@ -2,7 +2,7 @@
   "isRoot": true,
   "tools": {
     "cksetup": {
-      "version": "0.0.0--03lvwyf-local",
+      "version": "0.0.0--03lx5p6-develop",
       "commands": [
         "cksetup"
       ]

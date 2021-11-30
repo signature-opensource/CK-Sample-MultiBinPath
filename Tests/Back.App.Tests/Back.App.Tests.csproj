@@ -4,13 +4,13 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.Tests.NUnit" Version="0.0.0--03lwn66-local" />
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="0.0.0--03lx5p7-develop" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="0.0.0--03lwwca-local" />
-    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="0.0.0--03lwu77-local" />
+    <PackageReference Include="CK.DB.User.UserPassword.Tests" Version="0.0.0--03lx5p9-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="0.0.0--03lx5p7-develop" />
     <ProjectReference Include="..\..\Back.App\Back.App.csproj" />
   </ItemGroup>
 </Project>
