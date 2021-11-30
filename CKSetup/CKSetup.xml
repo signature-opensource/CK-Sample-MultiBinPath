@@ -46,7 +46,7 @@
   -->
   <LogLevel>Debug</LogLevel>
 
-  <!-- By default, CKSetup calculates a binary signature (SHA1) of all files participanting in a setup and saves it in CKSetup.signature.txt files after execution in each BinPath. 
+  <!-- By default, CKSetup calculates a binary signature (SHA1) of all files participating in a setup and saves it in CKSetup.signature.txt files after execution in each BinPath. 
        If nothing has changed, CKSetup avoids replaying the setup.
        To suppress this behavior, specify False instead of True:
       
@@ -62,12 +62,11 @@
   <!-- Optional element that allows you to specify a list of runtimes in descending order of preference (separated by ; like TargetFrameworks in a csproj).
        In the absence of this element, the "smallest/oldest" runtime is selected.
        For example, on BinPaths that contain only NetStandard2.0 assemblies (pure "Model" assemblies), Net461 will be selected.
-       Note that CKSetup.Runner supports 3 versions: Net461, NetCoreApp2.1 and NetCoreApp3.1.
-
-       Here, since we are targeting netstandard2.0 folders, the default selected runtime is... Net461. This is NOT what we want :). 
+       Note that CKSetup.Runner supports 4 runtimes: Net461, NetCoreApp21 and NetCoreApp31 and Net60.
+ 
+  <PreferredTargetRuntimes>Net60</PreferredTargetRuntimes>
   -->
-  <PreferredTargetRuntimes>NetCoreApp31</PreferredTargetRuntimes>
-
+ 
 
   <!-- Optional Dependencies element allows to inject any setup dependencies or increase the (minimal) version of a discovered setup dependencies.
 
@@ -81,7 +80,7 @@
 
        The case of the CKSetup.Runner dependency is special in that, if it does not appear, it is automatically added with the version of the CKSetup tool itself.
        It is therefore possible to use an "old runner" (which is done in the above example), or a "newer runner".
-       For all the other dependencies, the resolution mechanism applies: the maximum of the the different MinVersion will be used.
+       For all the other dependencies, the resolution mechanism applies: the maximum of the different MinVersion will be used.
   -->
 
   <!-- Here are the StObj Engine configuration, starting with the shared BinPaths. -->
@@ -92,7 +91,7 @@
   <BinPaths>
 
     <!-- This is a basic configuration with all its default. Below the front project is fully commented. -->    
-    <BinPath Path="../Back.App/bin/[Debug|Release]/netcoreapp3.1">
+    <BinPath Path="../Back.App/bin/[Debug|Release]/net6.0">
       <ProjectPath>../Back.WebHost</ProjectPath>
     </BinPath> 
     
@@ -106,10 +105,10 @@
       The two paths will be tested and the one that exists with the MOST RECENT file in it will win: the "Debug" or "Release" winner will be applied to the following
       BinPath path (if they contain the same [Debug|Release] - or [Release|Debug] - alternate path of course).
     -->
-    <BinPath Path="../Front.App/bin/[Debug|Release]/netcoreapp3.1">
+    <BinPath Path="../Front.App/bin/[Debug|Release]/net6.0">
       <!--
         Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup (only assemblies that appear in this list will be considered).
-        With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies disovered in the BinPath. -->
+        With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies discovered in the BinPath. -->
       <Assemblies />
 
       <!-- Can contain <Type Name="Name.Space.TypeName, AssemblyName" Kind="xxx" /> child elements with types assembly qualified name that must be explicitly
@@ -125,10 +124,10 @@
         <!-- The IActivityMonitor is by design a scoped service. It is not Optional (since it necessarily exists). -->
         <Type Name="CK.Core.IActivityMonitor, CK.ActivityMonitor" Kind="IsScoped" />
 
-        <!-- This defines a  [Multiple] ISingletonAutoService. Thanks to this definition, hosted services implementations are automatocally registered. -->
+        <!-- This defines a  [Multiple] ISingletonAutoService. Thanks to this definition, hosted services implementations are automatically registered. -->
         <Type Name="Microsoft.Extensions.Hosting.IHostedService, Microsoft.Extensions.Hosting.Abstractions" Kind="IsMultipleService|IsSingleton" Optional="True" />
 
-        <!-- The IOptions<> family with its 2 sigletons and 1 scoped shows how open generics can be registered.
+        <!-- The IOptions<> family with its 2 singletons and 1 scoped shows how open generics can be registered.
              Registration must be done from the most specific types to the basic ones: here we must start with IOptionsSnapshot since IOptionsSnapshot<T> extends IOptions<T>.
 
               If we register them the other way, there will be an error since the Singleton of the parent will conflict with the Scoped wanted by the specialization.
@@ -165,7 +164,7 @@
 
       <!-- CompileOption can be:
             - None: (that is the default) Roslyn compilation is totally skipped (this is adapted to" Project Mode"). 
-            - Parse: Roslyn syntax analyser is run on the source code. Syntax error are detected.
+            - Parse: Roslyn syntax analyzer is run on the source code. Syntax error are detected.
             - Compile: The source code is parsed and compiled: a final assembly is produced. 
       -->
       <CompileOption>None</CompileOption>
@@ -220,9 +219,12 @@
 
     <!--
       Specifies the connection string of the default "db" database.
-      (Since no other VersionWriter/Reader is available, this aspect will register its own VersionWriter/Reader for Setup Items: the table CKCore.tItemVersion holds them.) 
+      (Since no other VersionWriter/Reader is available, this aspect will register its own VersionWriter/Reader for Setup Items: the table CKCore.tItemVersion holds them.)
+      
+      Important: The net6.0 version (CKSetup v15+, CK-StObj v19+) now uses Microsoft.Data.SqlClient (instead of the legacy System.Data.SqlClient) that 
+      requires secure communication by default. Setting TrustServerCertificate=True in the connection string works around https://docs.microsoft.com/en-us/troubleshoot/sql/connect/error-message-when-you-connect.
     -->
-    <DefaultDatabaseConnectionString>Data Source=.;Initial Catalog=MultiBinPathDB;Integrated Security=True</DefaultDatabaseConnectionString>
+    <DefaultDatabaseConnectionString>Data Source=.;Initial Catalog=MultiBinPathDB;Integrated Security=True;TrustServerCertificate=True</DefaultDatabaseConnectionString>
   </Aspect>
 
 </Setup>
