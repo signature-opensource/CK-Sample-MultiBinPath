@@ -19,7 +19,7 @@ namespace Back.Web
             // Using the default "black box"...
             // (See the Front.Web Program.cs for a detailed and explicit configuration.)
             Host.CreateDefaultBuilder( args )
-                 .UseMonitoring()
+                 .UseCKMonitoring()
                  .ConfigureWebHostDefaults( webBuilder =>
                  {
                      webBuilder
