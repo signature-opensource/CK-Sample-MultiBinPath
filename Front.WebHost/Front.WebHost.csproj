@@ -21,6 +21,6 @@
   </Target>
   <ItemGroup>
     <ProjectReference Include="..\Front.App\Front.App.csproj" />
-    <ProjectReference Include="..\CKSetup\CKSetup.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\CKSetup\CKSetup.csproj" ReferenceOutputAssembly="false" Private="false"/>
   </ItemGroup>
 </Project>
