@@ -12,7 +12,10 @@
     </ItemGroup>
   </Target>
   <ItemGroup>
+    <ProjectReference Include="..\CKSetup\CKSetup.csproj" ReferenceOutputAssembly="false" Private="false" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\Back.App\Back.App.csproj" />
-    <ProjectReference Include="..\CKSetup\CKSetup.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>
