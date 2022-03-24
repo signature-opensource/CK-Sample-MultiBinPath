@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.Monitoring.Hosting" Version="15.0.0-r06-02-0002-develop" />
+    <PackageReference Include="CK.Monitoring.Hosting" Version="15.0.0-r06-02-0004-develop" />
   </ItemGroup>
   <!--
   The G0.cs is first removed from the compilation files to avoid a warning since
