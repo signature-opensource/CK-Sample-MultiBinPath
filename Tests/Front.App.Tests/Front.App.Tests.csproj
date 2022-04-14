@@ -9,7 +9,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="14.0.0-r07-02-0015-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="14.0.0-r07-02-0016-develop" />
     <ProjectReference Include="..\..\Front.App\Front.App.csproj" />
   </ItemGroup>
 </Project>
