@@ -72,7 +72,7 @@ namespace Front.Web
                     logging.AddConfiguration( hostingContext.Configuration.GetSection( "Logging" ) );
                 } )
                 // This configures the GrandOutput.Default and provides a scoped IActivityMonitor to the DI.
-                .UseMonitoring( "Monitoring" )
+                .UseCKMonitoring()
                 // Here comes the Web host configuration.
                 .ConfigureWebHostDefaults( webBuilder =>
                 {

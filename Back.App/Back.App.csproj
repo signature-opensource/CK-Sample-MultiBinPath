@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="15.0.1" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="13.0.0" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="13.0.0" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="16.0.0" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="14.0.0" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="14.0.0" />
   </ItemGroup>
 </Project>
