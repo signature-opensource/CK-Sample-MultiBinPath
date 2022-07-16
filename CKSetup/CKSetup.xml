@@ -16,7 +16,7 @@
 <Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
 
   <!-- 
-    Here are the pure CKSetup configurations: BasePath, WorkingDirectory, CKSetupName, LogLevel, UseSignatureFiles, ExternalSignature, PreferredTargetRuntimes and Dependencies.
+    Here are the pure CKSetup configurations: BasePath, WorkingDirectory, CKSetupName, LogLevel, ForceSetup, ExternalSignature, PreferredTargetRuntimes and Dependencies.
     The BinPaths element is shared between the Engine and CKSetup. CKSetup is only concerned by the path itself but the StObjEngine needs to configure these paths
     with more information like "Types" or "ExcludedTypes".
   -->
@@ -46,11 +46,13 @@
   -->
   <LogLevel>Debug</LogLevel>
 
-  <!-- By default, CKSetup calculates a binary signature (SHA1) of all files participating in a setup and saves it in CKSetup.signature.txt files after execution in each BinPath. 
-       If nothing has changed, CKSetup avoids replaying the setup.
-       To suppress this behavior, specify False instead of True:
+  <!-- By default, CKSetup calculates a binary signature (SHA1) of all files participating in a setup and saves it in CKSetup.signature.txt 
+       files after execution in each BinPath and in the WorkingDirectory. 
+       If nothing has changed (all BinPaths and WorkingDirectory are up to date), CKSetup can skip the setup (None) or reuse the WorkingDirectory
+       (skipping setup dependencies resolution) and run the Engine (Engine) or run a full setup anyway (Full).
+       By default, this is None:
       
-  <UseSignatureFiles>True</UseSignatureFiles>
+  <ForceSetup>None</ForceSetup>
   -->
 
   <!-- An optional string that can be absolutely anything: its purpose is to participate in the calculation of the signature 
