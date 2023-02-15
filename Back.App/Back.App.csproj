@@ -6,8 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="19.1.1--0002-develop" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="17.1.1--0002-develop" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="17.1.1--0002-develop" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="19.1.1--0003-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="17.1.1--0003-develop" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="17.1.1--0003-develop" />
   </ItemGroup>
 </Project>
