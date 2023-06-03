@@ -123,8 +123,9 @@
           good examples of what can be done.
       -->
       <Types>
-        <!-- The IActivityMonitor is by design a scoped service. It is not Optional (since it necessarily exists). -->
-        <Type Name="CK.Core.IActivityMonitor, CK.ActivityMonitor" Kind="IsScoped" />
+        <!-- The IActivityMonitor is by design a endpoint scoped service. It is not Optional (since it necessarily exists). -->
+        <Type Name="CK.Core.IActivityMonitor, CK.ActivityMonitor" Kind="IsEndpointService|IsScoped" />
+        <Type Name="CK.Core.IParallelLogger, CK.ActivityMonitor" Kind="IsEndpointService|IsScoped" />
 
         <!-- This defines a  [Multiple] ISingletonAutoService. Thanks to this definition, hosted services implementations are automatically registered. -->
         <Type Name="Microsoft.Extensions.Hosting.IHostedService, Microsoft.Extensions.Hosting.Abstractions" Kind="IsMultipleService|IsSingleton" Optional="True" />
@@ -134,10 +135,10 @@
 
               If we register them the other way, there will be an error since the Singleton of the parent will conflict with the Scoped wanted by the specialization.
         -->
-        <Type Name="Microsoft.Extensions.Options.IOptionsSnapshot`1, Microsoft.Extensions.Options" Kind="IsScoped|IsFrontProcessService" Optional="True" />
-        <Type Name="Microsoft.Extensions.Options.IOption`1, Microsoft.Extensions.Options" Kind="IsSingleton,IsFrontProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOptionsSnapshot`1, Microsoft.Extensions.Options" Kind="IsScoped|IsProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOption`1, Microsoft.Extensions.Options" Kind="IsSingleton,IsProcessService" Optional="True" />
         <!-- IOptionsMonitor is independent. -->
-        <Type Name="Microsoft.Extensions.Options.IOptionsMonitor`1, Microsoft.Extensions.Options" Kind="IsSingleton|IsFrontProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOptionsMonitor`1, Microsoft.Extensions.Options" Kind="IsSingleton|IsProcessService" Optional="True" />
 
         <!-- Other well known services life time can be defined... -->
         <Type Name="Microsoft.Extensions.Logging.ILoggerFactory, Microsoft.Extensions.Logging.Abstractions" Kind="IsSingleton" Optional="True" />
