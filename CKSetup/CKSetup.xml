@@ -135,10 +135,10 @@
 
               If we register them the other way, there will be an error since the Singleton of the parent will conflict with the Scoped wanted by the specialization.
         -->
-        <Type Name="Microsoft.Extensions.Options.IOptionsSnapshot`1, Microsoft.Extensions.Options" Kind="IsScoped|IsProcessService" Optional="True" />
-        <Type Name="Microsoft.Extensions.Options.IOption`1, Microsoft.Extensions.Options" Kind="IsSingleton,IsProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOptionsSnapshot`1, Microsoft.Extensions.Options" Kind="IsScoped" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOption`1, Microsoft.Extensions.Options" Kind="IsSingleton" Optional="True" />
         <!-- IOptionsMonitor is independent. -->
-        <Type Name="Microsoft.Extensions.Options.IOptionsMonitor`1, Microsoft.Extensions.Options" Kind="IsSingleton|IsProcessService" Optional="True" />
+        <Type Name="Microsoft.Extensions.Options.IOptionsMonitor`1, Microsoft.Extensions.Options" Kind="IsSingleton" Optional="True" />
 
         <!-- Other well known services life time can be defined... -->
         <Type Name="Microsoft.Extensions.Logging.ILoggerFactory, Microsoft.Extensions.Logging.Abstractions" Kind="IsSingleton" Optional="True" />
