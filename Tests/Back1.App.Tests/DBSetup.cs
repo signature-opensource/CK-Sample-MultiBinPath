@@ -1,6 +1,6 @@
 using System;
 
-namespace Back.App.Tests
+namespace Back1.App.Tests
 {
     /// <summary>
     /// This brings the different useful "commands" such as <see cref="CK.DB.Tests.DBSetup.drop_database"/>

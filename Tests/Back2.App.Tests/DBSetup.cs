@@ -1,9 +1,8 @@
 using System;
 
-namespace Front.App.Tests
+namespace Back2.App.Tests
 {
     public class DBSetup : CK.DB.Tests.DBSetup
     {
     }
-
 }
