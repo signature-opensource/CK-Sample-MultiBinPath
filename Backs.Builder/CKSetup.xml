@@ -1,25 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
-
-<!-- The root element name can be named differently but what is important is the Engine attribute. 
-     This Engine attribute is fundamental: it is the complete type of the object that will be instantiated and 
-     executed by the Runner. It can be any class that looks like this:
-
-    public class Engine
-    {
-        public Engine( IActivityMonitor m, XElement config ) { }
-
-        public bool Run() => true;
-    }
-
-     Here, we want the StObjEngine to be executed. 
--->
 <Setup Engine="CK.Setup.StObjEngine, CK.StObj.Engine">
-
-  <!-- 
-    Here are the pure CKSetup configurations: BasePath, WorkingDirectory, CKSetupName, LogLevel, ForceSetup, ExternalSignature, PreferredTargetRuntimes and Dependencies.
-    The BinPaths element is shared between the Engine and CKSetup. CKSetup is only concerned by the path itself but the StObjEngine needs to configure these paths
-    with more information like "Types" or "ExcludedTypes".
-  -->
 
   <!-- This is the base path that applies to all relative paths that may appear in this file.
        When this BasePath is undefined or empty (the default), it is the path of this configuration file itself that is used: 
@@ -27,99 +6,41 @@
     
   <BasePath></BasePath>
   -->
-
-  <!-- If you don't specify this WorkingDirectory, a timed folder is created under %Temp%/CKSetup folder. But keeping an eye on it is a good idea.
-       By default: 
-        - CKSetup.log file in this directory contains the logs with the Log Level specified here (set the attribute HasLogs="false" to skip producing the logs).
-        - Old (ie. previous) timed folders are automatically cleaned up (set the attribute KeepOnlyCount="X" where X is not 5 to change number of previous run to keep). -->
-  <WorkingDirectory>WorkingDir</WorkingDirectory>
- 
-  <!-- When specified, this is used as a sub folder in the WorkingDirectory so that Setup working directory are grouped by name.
-       By default (or when empty), timed folders will be created right below the WorkingDirectory. 
-
-    <CKSetupName></CKSetupName>
-  -->
-  
-  <!-- Configures the verbosity of the logs. 
-       Valid verbosity levels: Off, Release, Monitor, Terse, Verbose, Debug, 
-       or any {Group,Line} format where Group and Line can be: Debug, Trace, Info, Warn, Error, Fatal, or Off.
-  -->
-  <LogLevel>Debug</LogLevel>
-
-  <!-- By default, CKSetup calculates a binary signature (SHA1) of all files participating in a setup and saves it in CKSetup.signature.txt 
-       files after execution in each BinPath and in the WorkingDirectory. 
-       If nothing has changed (all BinPaths and WorkingDirectory are up to date), CKSetup can skip the setup (None) or reuse the WorkingDirectory
-       (skipping setup dependencies resolution) and run the Engine (Engine) or run a full setup anyway (Full).
-       By default, this is None:
-      
-  <ForceSetup>None</ForceSetup>
-  -->
-
-  <!-- An optional string that can be absolutely anything: its purpose is to participate in the calculation of the signature 
-       and therefore to represent any external information whose change must cause a necessary setup.
-
-  <ExternalSigntaure>Some external key.</ExternalSignature>
-  -->
-
-  <!-- Optional element that allows you to specify a list of runtimes in descending order of preference (separated by ; like TargetFrameworks in a csproj).
-       In the absence of this element, the "smallest/oldest" runtime is selected.
-       For example, on BinPaths that contain only NetStandard2.0 assemblies (pure "Model" assemblies), Net461 will be selected.
-       Note that CKSetup.Runner supports 4 runtimes: Net461, NetCoreApp21 and NetCoreApp31 and Net60.
- 
-  <PreferredTargetRuntimes>Net60</PreferredTargetRuntimes>
-  -->
- 
-
-  <!-- Optional Dependencies element allows to inject any setup dependencies or increase the (minimal) version of a discovered setup dependencies.
-
-       Example:
-
-          <Dependencies>
-            <Dependency Name="Another.Component" MinVersion="1.0.2-ci-develop.15" />
-            <Dependency Name="Component.In.Whatever.Version" />
-            <Dependency Name="CKSetup.Runner" MinVersion="5.0.0-d06-00-develop-0016" />
-          </Dependencies>
-
-       The case of the CKSetup.Runner dependency is special in that, if it does not appear, it is automatically added with the version of the CKSetup tool itself.
-       It is therefore possible to use an "old runner" (which is done in the above example), or a "newer runner".
-       For all the other dependencies, the resolution mechanism applies: the maximum of the different MinVersion will be used.
-  -->
-
-  <!-- Here are the StObj Engine configuration, starting with the shared BinPaths. -->
-
+   
   <!-- BinPaths: see https://github.com/signature-opensource/CK-StObj/blob/master/CK.StObj.Model/Configuration/BinPath.cs for the object documentation.
        These BinPaths describes the different applications that must participate in CKSetup process.
   -->
   <BinPaths>
 
-    <!-- This is a basic configuration with all its default. Below the front project is fully commented. -->    
-    <BinPath Path="../Back.App/bin/[Debug|Release]/net6.0">
-      <ProjectPath>../Back.WebHost</ProjectPath>
+    <!-- This is a basic configuration with all its default. Below the Back2 project is fully commented. -->    
+    <BinPath Path="../Back2.App/bin/[Debug|Release]/net8.0">
+      <ProjectPath>../Back2.Host</ProjectPath>
     </BinPath> 
     
     <!--
-      Each BinPath corresponds to a folder with the available binaries. For netstandard targets, the <CopyLocalLockFileAssemblies> is required in the
-      project so that all its dependencies are available.
-      For netcoreapp targets, this is not required since the CKSetup process automatically ensures that a /publish folder is up to date (this folder, by design, contains
-      the whole set of dependencies).
-
       Here, there is an alternate path that is described: [Debug|Release].
       The two paths will be tested and the one that exists with the MOST RECENT file in it will win: the "Debug" or "Release" winner will be applied to the following
       BinPath path (if they contain the same [Debug|Release] - or [Release|Debug] - alternate path of course).
     -->
-    <BinPath Path="../Front.App/bin/[Debug|Release]/net6.0">
+    <!--
+      Because this configuration uses explicit Types, we must set DiscoverAssembliesFromPath to true.
+    -->
+    <BinPath Path="../Back2.App/bin/[Debug|Release]/net8.0" DiscoverAssembliesFromPath="true" >
       <!--
-        Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup (only assemblies that appear in this list will be considered).
-        With CKSetup, this list can be left empty: it is automatically filled with the "model" and "model dependent" assemblies discovered in the BinPath. -->
-      <Assemblies />
+        Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup.
+        Only assemblies that appear in this list will be considered: when this list is non empty, DiscoverAssembliesFromPath is normalized
+        to "false".
+
+        <Assemblies />
+      -->
 
       <!-- Can contain <Type Name="Name.Space.TypeName, AssemblyName" Kind="xxx" /> child elements with types assembly qualified name that must be explicitly
-           registered regardless of <Assemblies />.
+           registered regardless of <Assemblies /> or DiscoverAssembliesFromPath results.
 
-          The Kind is a combination of the AutoServiceKind enumeration that is defined here: https://github.com/signature-opensource/CK-StObj/blob/develop/CK.StObj.Model/AutomaticDI/AutoServiceKind.cs
+          The Kind is a combination of the AutoServiceKind enumeration that is defined here: https://github.com/signature-opensource/CK-StObj/blob/develop/CK.Abstractions/ConfigurableAutoServiceKind.cs
           The combined enum can use comma (the standard .Net way to combine enum flags) or pipe (|).
           
-          Below are useless definitions (these declarations are already made by the StObjCollector that references all the types) that are
+          Below are totally useless definitions (these declarations are already made by the StObjCollector that references all the types) that are
           good examples of what can be done.
       -->
       <Types>
@@ -153,7 +74,7 @@
       <ProjectPath>../Front.WebHost</ProjectPath>
 
       <!-- CompileOption can be:
-            - None: (that is the default) Roslyn compilation is totally skipped (this is adapted to" Project Mode"). 
+            - None: (that is the default) Roslyn compilation is totally skipped (this is adapted to "Project Mode"). 
             - Parse: Roslyn syntax analyzer is run on the source code. Syntax error are detected.
             - Compile: The source code is parsed and compiled: a final assembly is produced. 
       -->
@@ -167,13 +88,15 @@
   <!-- These 2 options are for debugging: the "Real Objects" graph is dumped in the logs before and/or after topological sort. -->
   <TraceDependencySorterInput>false</TraceDependencySorterInput>
   <TraceDependencySorterOutput>false</TraceDependencySorterOutput>
+  
   <!-- This option reverts the names for objects that share the same rank in the ordered graph.
        When the same setup is successful with both name ordering, this proves that all required dependencies are defined.
   -->
   <RevertOrderingNames>false</RevertOrderingNames>
 
   <!--
-    This element can contain <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must be excluded from the Setup.
+    This element can contain <Type>Name.Space.TypeName, AssemblyName</Type> child elements with types assembly qualified name that must
+    be excluded from the Setup.
     Types excluded here are automatically excluded from all <BinPath> (as if they appear in each and every <BinPath><ExcludedTypes /></BinPath>).
   -->
   <GlobalExcludedTypes />
@@ -196,7 +119,8 @@
   <!-- Defines the aspect that handles Sql Server support. -->
   <Aspect Type="CK.Setup.SqlSetupAspectConfiguration, CK.SqlServer.Setup.Model">
 
-    <!-- Other databases can be defined here. The default one (named "db") doesn't need to be specified here: the DefaultDatabaseConnectionString below does the job.
+    <!-- Other databases can be defined here. The default one (named "db") doesn't need to be specified here:
+    the DefaultDatabaseConnectionString below does the job.
 
           <Database>
             <LogicalDatabaseName>histoDB</LogicalDatabaseName>
@@ -209,10 +133,11 @@
 
     <!--
       Specifies the connection string of the default "db" database.
-      (Since no other VersionWriter/Reader is available, this aspect will register its own VersionWriter/Reader for Setup Items: the table CKCore.tItemVersion holds them.)
+      Since no other VersionWriter/Reader is available, this aspect will register its own VersionWriter/Reader for Setup Items:
+      the table CKCore.tItemVersion holds them.
       
-      Important: The net6.0 version (CKSetup v15+, CK-StObj v19+) now uses Microsoft.Data.SqlClient (instead of the legacy System.Data.SqlClient) that 
-      requires secure communication by default. Setting TrustServerCertificate=True in the connection string works around https://docs.microsoft.com/en-us/troubleshoot/sql/connect/error-message-when-you-connect.
+      Important: Microsoft.Data.SqlClient is used (instead of the legacy System.Data.SqlClient) that requires secure communication by default.
+      Setting TrustServerCertificate=True in the connection string works around https://docs.microsoft.com/en-us/troubleshoot/sql/connect/error-message-when-you-connect.
     -->
     <DefaultDatabaseConnectionString>Data Source=.;Initial Catalog=MultiBinPathDB;Integrated Security=True;TrustServerCertificate=True</DefaultDatabaseConnectionString>
   </Aspect>

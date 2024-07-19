@@ -1,35 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Back.App;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using CK.Core;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
 
-namespace Back.Web
+var builder = WebApplication.CreateSlimBuilder();
+builder.UseCKMonitoring();
+builder.AddWebFrontAuth( options => options.ExpireTimeSpan = TimeSpan.FromDays( 1 ) );
+var app = builder.CKBuild( StObjContextRoot.Load( System.Reflection.Assembly.GetExecutingAssembly(), builder.GetBuilderMonitor() ) );
+
+app.Run( async ( context ) =>
 {
-    public class Program
-    {
-        public static void Main( string[] args )
-        {
-            //// Using the default "black box"...
-            //// (See the Front.Web Program.cs for a detailed and explicit configuration.)
-            //Host.CreateDefaultBuilder( args )
-            //     .UseCKMonitoring()
-            //     .ConfigureWebHostDefaults( webBuilder =>
-            //     {
-            //         webBuilder
-            //             .UseKestrel()
-            //             .UseScopedHttpContext()
-            //             .UseIISIntegration()
-            //             .UseStartup<Startup>();
-            //     } )
-            //    .Build()
-            //    .Run();
-        }
-    }
-}
+    await context.Response.WriteAsync( "Hello World!" );
+} );
