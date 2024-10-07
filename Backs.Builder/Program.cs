@@ -1,3 +1,3 @@
 
 
-return CK.Setup.CKomposableAppBuilder.Run();
+return await CK.Setup.CKomposableAppBuilder.RunAsync();
