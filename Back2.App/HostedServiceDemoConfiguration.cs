@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Front.App
+namespace Front.App;
+
+public class HostedServiceDemoConfiguration
 {
-    public class HostedServiceDemoConfiguration
-    {
-        public string MessageToTheWorld { get; set; }
-    }
+    public string MessageToTheWorld { get; set; }
 }

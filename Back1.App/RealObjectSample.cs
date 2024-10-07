@@ -1,12 +1,11 @@
 using CK.Core;
 using System;
 
-namespace Back.App
+namespace Back.App;
+
+public class RealObjectSample : IRealObject
 {
-    public class RealObjectSample : IRealObject
+    public RealObjectSample()
     {
-        public RealObjectSample() 
-        {
-        }
     }
 }
