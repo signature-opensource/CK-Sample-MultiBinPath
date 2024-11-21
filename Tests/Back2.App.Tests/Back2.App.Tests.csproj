@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="27.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="22.0.0" />
+    <ProjectReference Include="..\..\Back2.App\Back2.App.csproj" />
+  </ItemGroup>
+</Project>

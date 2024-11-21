@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CK.Monitoring.Hosting" Version="22.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Back2.App\Back2.App.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Backs.Builder\Backs.Builder.csproj" ReferenceOutputAssembly="false" Private="false" />
+  </ItemGroup>
+</Project>
