@@ -7,7 +7,7 @@
   <ItemGroup>
     <!-- This reference the AspNet Core meta package. -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="25.1.1--0021-develop" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="23.1.1--0018-develop" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="25.1.1--0022-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="23.1.1--0019-develop" />
   </ItemGroup>
 </Project>
