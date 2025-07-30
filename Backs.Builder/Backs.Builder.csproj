@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.AppBuilder" Version="30.0.1--0010-develop" />
+    <PackageReference Include="CK.Cris.Engine" Version="0.39.2--0003-develop" />
     <PackageReference Include="CK.Setupable.Engine" Version="30.0.1--0006-develop" />
     <PackageReference Include="CK.SqlServer.Setup.Engine" Version="30.0.1--0006-develop" />
   </ItemGroup>
