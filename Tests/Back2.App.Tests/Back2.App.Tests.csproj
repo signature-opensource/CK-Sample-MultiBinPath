@@ -4,12 +4,12 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.Tests.NUnit" Version="30.0.1--0045-develop" />
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="30.0.1--0046-develop" />
     <PackageReference Include="NUnit3TestAdapter" Version="5.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="25.0.1--0044-develop" />
+    <PackageReference Include="CK.DB.User.UserOidc.Tests" Version="25.0.1--0045-develop" />
     <ProjectReference Include="..\..\Back2.App\Back2.App.csproj" />
   </ItemGroup>
 </Project>
