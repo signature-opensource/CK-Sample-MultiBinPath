@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="CK.Cris.Executor" Version="0.42.1" />
     <PackageReference Include="CK.DB.AspNet.Auth" Version="29.1.1" />
     <PackageReference Include="CK.DB.User.UserOidc" Version="27.1.1" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="27.1.1" />
