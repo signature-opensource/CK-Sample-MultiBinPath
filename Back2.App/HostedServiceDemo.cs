@@ -1,12 +1,8 @@
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CK.Core;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
 
 namespace Front.App;
 

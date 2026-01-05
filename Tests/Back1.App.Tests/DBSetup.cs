@@ -1,5 +1,3 @@
-using System;
-
 namespace Back1.App.Tests;
 
 /// <summary>

@@ -12,4 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Backs.Builder\Backs.Builder.csproj" ReferenceOutputAssembly="false" Private="false" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="%24StObjGen\" />
+  </ItemGroup>
 </Project>
