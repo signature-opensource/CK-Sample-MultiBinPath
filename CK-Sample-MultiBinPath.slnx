@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".config/dotnet-tools.json" />
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="appveyor.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="NuGet.config" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Back1.App.Tests/Back1.App.Tests.csproj" />
+    <Project Path="Tests/Back2.App.Tests/Back2.App.Tests.csproj" />
+  </Folder>
+  <Project Path="Back1.App/Back1.App.csproj" />
+  <Project Path="Back1.Host/Back1.Host.csproj" />
+  <Project Path="Back2.App/Back2.App.csproj" />
+  <Project Path="Back2.Host/Back2.Host.csproj" />
+  <Project Path="Backs.Builder/Backs.Builder.csproj" />
+</Solution>
