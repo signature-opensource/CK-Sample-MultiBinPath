@@ -13,7 +13,7 @@
   <BinPaths>
 
     <!-- This is a basic configuration with all its default. Below the Back2 project is fully commented. -->    
-    <BinPath Path="../Back1.App/bin/[Debug|Release]/net8.0">
+    <BinPath Path="../Back1.App/bin/[Debug|Release]/net10.0">
       <ProjectPath>../Back1.Host</ProjectPath>
     </BinPath> 
     
@@ -25,7 +25,7 @@
     <!--
       Because this configuration uses explicit Types, we must set DiscoverAssembliesFromPath to true.
     -->
-    <BinPath Path="../Back2.App/bin/[Debug|Release]/net8.0" DiscoverAssembliesFromPath="true" >
+    <BinPath Path="../Back2.App/bin/[Debug|Release]/net10.0" DiscoverAssembliesFromPath="true" >
       <!--
         Can contain a set of assembly names <Assembly>An.Assembly.Name</Assembly> that must be processed for setup.
         Only assemblies that appear in this list will be considered: when this list is non empty, DiscoverAssembliesFromPath is normalized
