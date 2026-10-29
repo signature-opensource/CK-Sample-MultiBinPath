@@ -7,7 +7,6 @@ using System;
 
 var builder = WebApplication.CreateSlimBuilder();
 builder.UseCKMonitoring();
-builder.AddWebFrontAuth( options => options.ExpireTimeSpan = TimeSpan.FromDays( 1 ) );
 var app = builder.CKBuild( StObjContextRoot.Load( System.Reflection.Assembly.GetExecutingAssembly(), builder.GetBuilderMonitor() ) );
 
 app.Run( async ( context ) =>
