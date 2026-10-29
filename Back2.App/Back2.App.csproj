@@ -7,6 +7,7 @@
   <ItemGroup>
     <!-- This reference the AspNet Core meta package. -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.0.ci.6" />
     <PackageReference Include="CK.Cris.Authentication" Version="3.0.0-0.cris-auth.0.ci.61" />
     <PackageReference Include="CK.DB.User.UserOidc" Version="31.0.0-0.cris-auth.0.ci.22" />
   </ItemGroup>
