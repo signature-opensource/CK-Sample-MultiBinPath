@@ -6,9 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.0.ci.36" />
-    <PackageReference Include="CK.Cris.Authentication" Version="3.0.0-0.cris-auth.0.ci.90" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="31.0.0-0.cris-auth.0.ci.44" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.0.ci.42" />
+    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.0.ci.37" />
+    <PackageReference Include="CK.Cris.Authentication" Version="3.0.0-0.cris-auth.0.ci.91" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="31.0.0-0.cris-auth.0.ci.45" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.0.ci.43" />
   </ItemGroup>
 </Project>
