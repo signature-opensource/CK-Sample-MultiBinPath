@@ -4,12 +4,12 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Engine" Version="3.0.0-0.cris-auth.1.ci.61" />
-    <PackageReference Include="CK.AppBuilder" Version="36.0.0-0.cris-auth.1.ci.41" />
-    <PackageReference Include="CK.Cris.Engine" Version="3.0.0-0.cris-auth.1.ci.128" />
-    <PackageReference Include="CK.Cris.Executor.Engine" Version="3.0.0-0.cris-auth.1.ci.128" />
-    <PackageReference Include="CK.Setupable.Engine" Version="36.0.0-0.cris-auth.1.ci.63" />
-    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="36.0.0-0.cris-auth.1.ci.63" />
+    <PackageReference Include="CK.AppIdentity.Engine" Version="3.0.0-0.cris-auth.1.ci.64" />
+    <PackageReference Include="CK.AppBuilder" Version="36.0.0-0.cris-auth.1.ci.45" />
+    <PackageReference Include="CK.Cris.Engine" Version="3.0.0-0.cris-auth.1.ci.130" />
+    <PackageReference Include="CK.Cris.Executor.Engine" Version="3.0.0-0.cris-auth.1.ci.130" />
+    <PackageReference Include="CK.Setupable.Engine" Version="36.0.0-0.cris-auth.1.ci.66" />
+    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="36.0.0-0.cris-auth.1.ci.66" />
   </ItemGroup>
   <!-- Declaring dependencies here enables change detection in source projects and automatic code source regeneration into the .Host projects. -->
   <ItemGroup>
