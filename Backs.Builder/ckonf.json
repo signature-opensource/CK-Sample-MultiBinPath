@@ -1,0 +1,69 @@
+{
+  // The configuration of the Backs App: two BinPaths (two parties), each one its ".App" project (its code) and its
+  // ".Host" project, whose appsettings.json is generated from its section below (without its compile time keys).
+  // The database aspects are still in the CKSetup.xml (the App features: UC step 2).
+  "App": {
+    "BinPaths": {
+      // A basic configuration with all its defaults.
+      "Back1": {
+        "CK-AppIdentity": {
+          "FullName": "Sample/MultiBinPath/$Back1/#Dev",
+          // A web server: the "HttpEndpoint" feature (CK.AppIdentity.HttpEndpoint) starts the web application of its endpoint.
+          "Local": {
+            "AllowFeatures": "HttpEndpoint",
+            "HttpEndpoint": { "Main": { "Urls": "http://localhost:5401" } }
+          }
+        },
+        "Logging": {
+          "LogLevel": {
+            "Default": "Warning"
+          }
+        },
+        "CK-Monitoring": {
+          "Console": true
+        }
+      },
+      "Back2": {
+        // Because this configuration uses explicit Types, the assemblies are discovered from its bin folder.
+        "DiscoverAssembliesFromPath": true,
+        // The types that must be explicitly registered regardless of the assemblies (with an optional Kind: a combination
+        // of the ConfigurableAutoServiceKind flags). These ones are useless (the StObjCollector already registers them): they
+        // are good examples. The IActivityMonitor and its ParallelLogger are scoped services that must be available in all
+        // containers.
+        "Types": [
+          { "Name": "CK.Core.IActivityMonitor, CK.ActivityMonitor", "Kind": "IsContainerConfiguredService|IsScoped" },
+          { "Name": "CK.Core.IParallelLogger, CK.ActivityMonitor", "Kind": "IsContainerConfiguredService|IsScoped" }
+        ],
+        // None (the default): the Roslyn compilation is skipped (the "project mode": the source goes to the Host's $StObjGen).
+        // Parse: the syntax is checked. Compile: a final assembly is produced.
+        "CompileOption": "None",
+        "CK-AppIdentity": {
+          "FullName": "Sample/MultiBinPath/$Back2/#Dev",
+          // A web server: the "HttpEndpoint" feature (CK.AppIdentity.HttpEndpoint) starts the web application of its endpoint.
+          "Local": {
+            "AllowFeatures": "HttpEndpoint",
+            "HttpEndpoint": { "Main": { "Urls": "http://localhost:5402" } }
+          }
+        },
+        "Logging": {
+          "LogLevel": {
+            "Default": "Warning"
+          }
+        },
+        "CK-Monitoring": {
+          "GrandOutput": {
+            "Handlers": {
+              "Console": true,
+              "TextFile": {
+                "Path": "Text"
+              },
+              "BinaryFile": {
+                "Path": "Binary"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
