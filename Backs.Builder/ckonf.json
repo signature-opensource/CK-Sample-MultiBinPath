@@ -10,7 +10,7 @@
       // A web server: the "HttpEndpoint" feature (CK.AppIdentity.HttpEndpoint) starts the web application of its endpoint.
       "Local": {
         "AllowFeatures": "HttpEndpoint",
-        "HttpEndpoint": { "Main": { "Urls": "http://localhost:5401" } }
+        "HttpEndpoint": { "Urls": "http://localhost:5401" }
       },
       "Logging": {
         "LogLevel": {
@@ -39,7 +39,7 @@
       // A web server: the "HttpEndpoint" feature (CK.AppIdentity.HttpEndpoint) starts the web application of its endpoint.
       "Local": {
         "AllowFeatures": "HttpEndpoint",
-        "HttpEndpoint": { "Main": { "Urls": "http://localhost:5402" } }
+        "HttpEndpoint": { "Urls": "http://localhost:5402" }
       },
       "Logging": {
         "LogLevel": {
