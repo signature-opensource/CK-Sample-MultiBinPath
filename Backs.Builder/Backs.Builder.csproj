@@ -4,12 +4,12 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Engine" Version="3.0.0-0.uc.0.ci.69" />
+    <PackageReference Include="CK.AppIdentity.Engine" Version="3.0.0-0.uc.0.ci.70" />
     <PackageReference Include="CK.AppBuilder" Version="36.0.0-0.uc.0.ci.49" />
-    <PackageReference Include="CK.Cris.Engine" Version="3.0.0-0.uc.0.ci.131" />
-    <PackageReference Include="CK.Cris.Executor.Engine" Version="3.0.0-0.uc.0.ci.131" />
-    <PackageReference Include="CK.Setupable.Engine" Version="36.0.0-0.uc.0.ci.67" />
-    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="36.0.0-0.uc.0.ci.67" />
+    <PackageReference Include="CK.Cris.Engine" Version="3.0.0-0.uc.0.ci.132" />
+    <PackageReference Include="CK.Cris.Executor.Engine" Version="3.0.0-0.uc.0.ci.132" />
+    <PackageReference Include="CK.Setupable.Engine" Version="36.0.0-0.uc.0.ci.68" />
+    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="36.0.0-0.uc.0.ci.68" />
   </ItemGroup>
   <!-- Declaring dependencies here enables change detection in source projects and automatic code source regeneration into the .Host projects. -->
   <ItemGroup>
