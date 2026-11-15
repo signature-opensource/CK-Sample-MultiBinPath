@@ -9,7 +9,6 @@
       "FullName": "Sample/MultiBinPath/$Back1/#Dev",
       // A web server: the "HttpEndpoint" feature (CK.AppIdentity.HttpEndpoint) starts the web application of its endpoint.
       "Local": {
-        "AllowFeatures": "HttpEndpoint",
         "HttpEndpoint": { "Urls": "http://localhost:5401" }
       },
       "Logging": {
@@ -38,7 +37,6 @@
       "FullName": "Sample/MultiBinPath/$Back2/#Dev",
       // A web server: the "HttpEndpoint" feature (CK.AppIdentity.HttpEndpoint) starts the web application of its endpoint.
       "Local": {
-        "AllowFeatures": "HttpEndpoint",
         "HttpEndpoint": { "Urls": "http://localhost:5402" }
       },
       "Logging": {
