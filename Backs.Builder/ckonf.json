@@ -2,7 +2,11 @@
   // The configuration of the builder: two Apps (two processes, two parties), each one its ".App" project (its code)
   // and its ".Host" project, whose appsettings.json is generated from its section below (without its compile time keys;
   // the keys of its party go in the "CK-AppIdentity" section).
-  // The database aspects are still in the CKSetup.xml (the Builder aspects: UC step 2).
+  // The Builder aspects: the database of the engine run (engine wide: shared by the two Apps); its connection string is projected in the
+  // "SqlServer" section of the hosts' appsettings.json.
+  "Aspects": {
+    "SqlServer": { "DefaultDatabaseConnectionString": "Data Source=.;Initial Catalog=MultiBinPathDB;Integrated Security=True;TrustServerCertificate=True" }
+  },
   "Apps": {
     // A basic configuration with all its defaults.
     "Back1": {
