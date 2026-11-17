@@ -7,8 +7,8 @@
   <ItemGroup>
     <!-- This reference the AspNet Core meta package. -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.0.ci.5" />
-    <PackageReference Include="CK.Cris.Authentication" Version="3.0.0-0.uc.0.ci.149" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="31.0.0-0.uc.0.ci.83" />
+    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.0.ci.6" />
+    <PackageReference Include="CK.Cris.Authentication" Version="3.0.0-0.uc.0.ci.150" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="31.0.0-0.uc.0.ci.84" />
   </ItemGroup>
 </Project>
