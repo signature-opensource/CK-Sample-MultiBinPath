@@ -6,9 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.2.ci.61" />
-    <PackageReference Include="CK.Cris.Authentication" Version="3.0.0-0.uc.2.ci.195" />
-    <PackageReference Include="CK.DB.User.UserOidc" Version="31.0.0-0.uc.2.ci.126" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.2.ci.116" />
+    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.2.ci.64" />
+    <PackageReference Include="CK.Cris.Authentication" Version="3.0.0-0.uc.2.ci.199" />
+    <PackageReference Include="CK.DB.User.UserOidc" Version="31.0.0-0.uc.2.ci.129" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.2.ci.119" />
   </ItemGroup>
 </Project>
