@@ -10,7 +10,7 @@
   "Apps": [
     // A basic configuration with all its defaults.
     {
-      "Name": "Back1",
+      "Name": "$Back1",
       "FullName": "Sample/MultiBinPath/$Back1/#Dev",
       // A web server: the "HttpEndpoint" feature (CK.AppIdentity.HttpEndpoint) starts the web application of its endpoint.
       "Local": {
@@ -26,7 +26,7 @@
       }
     },
     {
-      "Name": "Back2",
+      "Name": "$Back2",
       // Because this configuration uses explicit Types, the assemblies are discovered from its bin folder.
       "DiscoverAssembliesFromPath": true,
       // The types that must be explicitly registered regardless of the assemblies (with an optional Kind: a combination
